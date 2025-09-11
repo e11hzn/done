@@ -1,9 +1,19 @@
 import Image from 'next/image';
+import { CalendarDatetimePicker } from '@/components/CalenderDatetimePicker';
+import { LocalePicker } from '@/components/LocalePicker';
+import { getTranslations } from '@/utils/i18n';
+import { getCookieStorageConfig } from '@/utils/cookieStorage';
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations();
+  const cookieInStorage = await getCookieStorageConfig();
+  const { locale } = cookieInStorage;
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <LocalePicker cookieInStorage={cookieInStorage} t={t} />
+        <CalendarDatetimePicker locale={locale} />
         <Image
           className="dark:invert"
           src="/next.svg"

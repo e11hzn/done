@@ -5,8 +5,8 @@
   "scripts": {
     "build": "next build --turbopack",
     "dev": "next dev --turbopack",
-    "format": "prettier --write './**/*.{js,ts,jsx,tsx,mjs,css}'",
-    "format-check": "prettier --check './**/*.{js,ts,jsx,tsx,mjs,css}'",
+    "format": "prettier --write './**/*.{js,ts,jsx,tsx,mjs,css}' --config ./.prettierrc",
+    "format-check": "prettier --check './**/*.{js,ts,jsx,tsx,mjs,css}' --config ./.prettierrc",
     "lint": "eslint",
     "start": "next start"
   },

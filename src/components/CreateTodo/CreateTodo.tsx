@@ -19,11 +19,12 @@ export const CreateTodo = ({ locale }: CreateTodoProps) => {
   } = useForm();
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-4 w-full border-t-3 border-gray-600 pt-4">
+      <h2 className="text-2xl text-orange-900">Create a Todo</h2>
       <label className="flex flex-col">
-        Name:&nbsp;
+        Name:
         <input
-          className="border-2 border-[#ddd] rounded"
+          className="border-2 border-gray-300 rounded"
           onChange={updateName}
           required
           value={form.name}
@@ -33,16 +34,16 @@ export const CreateTodo = ({ locale }: CreateTodoProps) => {
         )}
       </label>
       <label className="flex flex-col">
-        <span>Description:&nbsp;</span>
+        <span>Description:</span>
         <textarea
-          className="border-2 border-[#ddd] rounded"
+          className="border-2 border-gray-300 rounded"
           onChange={updateDescription}
           rows={5}
           value={form.description}
         />
       </label>
       <label className="flex flex-col">
-        Date:&nbsp;
+        Date:
         <CalendarDatetimePicker
           date={form.date}
           locale={locale}
@@ -50,15 +51,15 @@ export const CreateTodo = ({ locale }: CreateTodoProps) => {
         />
       </label>
       <label className="flex flex-col">
-        Categories (separate with a space):&nbsp;
+        Categories (separate with a space):
         <input
-          className="border-2 border-[#ddd] rounded"
+          className="border-2 border-gray-300 rounded"
           onChange={updateCategories}
           value={form.categories.join(' ')}
         />
       </label>
       <button
-        className="mt-4 bg-black text-white border-2 border-[#ccc] rounded cursor-pointer py-1"
+        className="mt-4 bg-black text-white border-2 border-gray-200 rounded cursor-pointer py-1 font-bold"
         onClick={onSubmit}
       >
         Add

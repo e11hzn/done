@@ -7,5 +7,5 @@ export const getServerCookieConfig = async (): Promise<CookieStorageConfig> => {
   const cookieStore = await cookies();
 
   const currentConfigInStore = cookieStore.get(COOKIE_KEY)!;
-  return JSON.parse(currentConfigInStore.value);
+  return JSON.parse(decodeURIComponent(currentConfigInStore.value));
 };

@@ -14,7 +14,7 @@ export const LocalePicker = ({ locale, t }: LocalePickerProps) => {
     <label>
       {t.localePicker.selectLanguage}:
       <select
-        className="text-center border-2 border-[#ddd] rounded ml-1"
+        className="text-center border-2 border-gray-300 rounded ml-1"
         defaultValue={locale}
         id="locale-picker"
         onChange={(e) => setClientCookieConfig({ locale: e.target.value })}

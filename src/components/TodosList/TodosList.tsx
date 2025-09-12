@@ -19,23 +19,40 @@ export const TodosList = ({ list, locale }: TodosListProps) => {
             {list.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col w-full border-2 border-gray-200 p-2 rounded"
+                className="flex flex-col w-full border-2 border-gray-200 p-2 rounded gap-4"
               >
-                <h3>{item.name}</h3>
+                <h3 className="text-2xl font-bold">{item.name}</h3>
                 {item.date && (
-                  <span>
+                  <span className="italic">
+                    Due date:&nbsp;
                     {new Date(item.date as string).toLocaleDateString(locale)}
                   </span>
                 )}
-                {item.description && <span>{item.description}</span>}
-                {item.categories.length === 0 && (
-                  <div className="flex flex-wrap gap-4">
+                {item.description && (
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: item.description.replace(
+                        /(?:\r\n|\r|\n)/g,
+                        '<br>',
+                      ),
+                    }}
+                  />
+                )}
+                {item.categories.length !== 0 && (
+                  <div className="flex flex-wrap gap-2">
                     {item.categories.map((category) => (
-                      <div key={category}>{category}</div>
+                      <div
+                        key={category}
+                        className="border-gray-200 border-2 rounded p-1"
+                      >
+                        {category}
+                      </div>
                     ))}
                   </div>
                 )}
-                <span>Done: {item.done ? 'yes' : 'no'}</span>
+                <span className="border-t-2 border-gray-200 pt-2">
+                  Done: {item.done ? 'yes' : 'no'}
+                </span>
               </div>
             ))}
           </div>

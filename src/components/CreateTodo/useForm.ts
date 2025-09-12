@@ -2,9 +2,9 @@ import { ChangeEvent, useState } from 'react';
 import { CalendarDatetimePickerProps } from '@/components/CalenderDatetimePicker';
 import { createTodo, FormData } from '@/actions/createTodo';
 import {
-  getCookieStorageConfig,
-  setCookieStorageConfig,
-} from '@/utils/cookieStorage';
+  getClientCookieConfig,
+  setClientCookieConfig,
+} from '@/utils/cookieClient';
 
 export const useForm = () => {
   const [form, setForm] = useState<FormData>({
@@ -57,10 +57,10 @@ export const useForm = () => {
     // TODO: if user is logged in --> call server action instead of below
     // await createTodo(form);
 
-    const { list } = await getCookieStorageConfig();
+    const { list } = await getClientCookieConfig();
     const id = list.length ? list[list.length - 1].id + 1 : 0;
 
-    setCookieStorageConfig({
+    setClientCookieConfig({
       list: [
         ...list,
         {

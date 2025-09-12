@@ -2,7 +2,7 @@
 'use client';
 
 import { locales } from '@/utils/i18n';
-import { setCookieStorageConfig } from '@/utils/cookieStorage';
+import { setClientCookieConfig } from '@/utils/cookieClient';
 
 export type LocalePickerProps = {
   locale: string;
@@ -17,7 +17,7 @@ export const LocalePicker = ({ locale, t }: LocalePickerProps) => {
         className="text-center border-2 border-[#ddd] rounded ml-1"
         defaultValue={locale}
         id="locale-picker"
-        onChange={(e) => setCookieStorageConfig({ locale: e.target.value })}
+        onChange={(e) => setClientCookieConfig({ locale: e.target.value })}
       >
         {locales.map(({ flag, locale, name }) => (
           <option key={locale} value={locale}>

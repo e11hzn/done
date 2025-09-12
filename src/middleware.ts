@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-
-export const COOKIE_KEY = 'done-todos-config';
+import { COOKIE_KEY } from './utils/cookieClient';
 
 export function middleware(request: NextRequest) {
   // TODO: if user is logged in --> then continue

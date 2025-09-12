@@ -2,15 +2,10 @@
 
 import { cookies } from 'next/headers';
 import { COOKIE_KEY } from '@/middleware';
-
-type Todo = {
-  date?: string;
-  description?: string;
-  name: string;
-};
+import { Todo } from '@/utils/types';
 
 export type CookieStorageConfig = {
-  lists: Record<string, Todo[]>[];
+  list: Todo[];
   locale: string;
 };
 

@@ -1,33 +1,31 @@
 'use client';
 
-import { useState } from 'react';
 import DateTimePicker, { DateTimePickerProps } from 'react-datetime-picker';
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 
 export type CalendarDatetimePickerProps = {
-  initialValue?: string;
+  date: DateTimePickerProps['value'];
   locale: string;
+  onChange: (date: DateTimePickerProps['value']) => void;
 };
 
 export const CalendarDatetimePicker = ({
-  initialValue,
+  date,
   locale,
+  onChange,
 }: CalendarDatetimePickerProps) => {
-  const [value, onChange] = useState<DateTimePickerProps['value']>(
-    initialValue ? new Date(initialValue) : undefined,
-  );
-
   return (
     <DateTimePicker
+      className="border-2 border-[#ddd] rounded [&>div]:!border-none"
       dayPlaceholder="dd"
       hourPlaceholder="hh"
       locale={locale}
       minutePlaceholder="mm"
       monthPlaceholder="mm"
       onChange={onChange}
-      value={value}
+      value={date}
       yearPlaceholder="yyyy"
     />
   );

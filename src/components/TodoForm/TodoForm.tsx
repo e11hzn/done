@@ -2,21 +2,38 @@
 
 import { CalendarDatetimePicker } from '@/components/CalenderDatetimePicker';
 import { useForm } from './useForm';
+import { Todo } from '@/utils/types';
 
-export const CreateTodo = () => {
+export type TodoFormProps =
+  | {
+      type: 'create';
+    }
+  | {
+      todo: Todo;
+      type: 'edit';
+    };
+
+export const TodoForm = (props: TodoFormProps) => {
+  const { type } = props;
+  const todo = type === 'edit' ? props.todo : undefined;
   const {
     form,
-    onSubmit,
+    onCreate,
+    onEdit,
     showNameError,
     updateCategories,
     updateDate,
     updateDescription,
     updateName,
-  } = useForm();
+  } = useForm(todo);
+
+  const title = type === 'edit' ? `Edit "${todo?.name}"` : 'Create a Todo';
+  const action = type === 'edit' ? () => onEdit(todo!.id) : onCreate;
+  const buttonTitle = type === 'edit' ? 'Update' : 'Add';
 
   return (
     <div className="flex flex-col gap-4 w-full border-t-3 border-gray-600 pt-4">
-      <h2 className="text-2xl text-orange-900">Create a Todo</h2>
+      <h2 className="text-2xl text-orange-900">{title}</h2>
       <label className="flex flex-col">
         Name:
         <input
@@ -52,9 +69,9 @@ export const CreateTodo = () => {
       </label>
       <button
         className="mt-4 bg-black text-white border-2 border-gray-200 rounded cursor-pointer py-1 font-bold"
-        onClick={onSubmit}
+        onClick={action}
       >
-        Add
+        {buttonTitle}
       </button>
     </div>
   );

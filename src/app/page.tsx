@@ -1,8 +1,9 @@
-import { CreateTodo } from '@/components/CreateTodo/CreateTodo';
+import { CreateTodo } from '@/components/CreateTodo';
 import { LocalePicker } from '@/components/LocalePicker';
 import { getServerCookieConfig } from '@/utils/cookieServer';
-import { TodosList } from '@/components/TodosList/TodosList';
+import { TodosList } from '@/components/TodosList';
 import { AppProvider } from '@/components/AppProvider';
+import { EditTodo } from '@/components/EditTodo';
 
 export default async function Home() {
   const cookieConfig = await getServerCookieConfig();
@@ -16,6 +17,7 @@ export default async function Home() {
           </h1>
           <LocalePicker />
           <CreateTodo />
+          <EditTodo />
           <TodosList />
         </main>
       </div>

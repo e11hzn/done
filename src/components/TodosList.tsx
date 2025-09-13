@@ -2,11 +2,15 @@
 
 import { useAppContext } from '@/components/AppProvider';
 import { DeleteIcon } from '@/icons/DeleteIcon';
-import { IconButton } from '../IconButton';
+import { IconButton } from './IconButton';
 import { PencilIcon } from '@/icons/PencilIcon';
 
 export const TodosList = () => {
-  const { locale, todos } = useAppContext();
+  const { locale, setEditTodo, setTodos, todos } = useAppContext();
+
+  const deleteTodo = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   return (
     <div className="border-t-3 border-gray-600 w-full pt-4">
@@ -27,10 +31,12 @@ export const TodosList = () => {
                 <IconButton
                   className="absolute top-0 right-0"
                   icon={DeleteIcon}
+                  onClick={() => deleteTodo(item.id)}
                 />
                 <IconButton
                   className="absolute top-0 right-7"
                   icon={PencilIcon}
+                  onClick={() => setEditTodo(item)}
                 />
                 {item.date && (
                   <span className="italic">

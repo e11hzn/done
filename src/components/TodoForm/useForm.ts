@@ -1,15 +1,18 @@
 import { ChangeEvent, useState } from 'react';
 import { CalendarDatetimePickerProps } from '@/components/CalenderDatetimePicker';
-import { createTodo, FormData } from '@/actions/createTodo';
+import { FormData } from '@/actions/createTodo';
 import { useTodos } from '@/components/AppProvider';
+import { Todo } from '@/utils/types';
 
-export const useForm = () => {
-  const [form, setForm] = useState<FormData>({
-    categories: [],
-    name: '',
-  });
+export const useForm = (todo?: Todo) => {
+  const [form, setForm] = useState<FormData>(
+    todo ?? {
+      categories: [],
+      name: '',
+    },
+  );
   const [showNameError, setShowNameError] = useState(false);
-  const { todos, setTodos } = useTodos();
+  const { setTodos, todos } = useTodos();
 
   const updateName = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNameError(false);
@@ -40,7 +43,7 @@ export const useForm = () => {
     }));
   };
 
-  const onSubmit = async () => {
+  const onCreate = () => {
     if (!form.name) {
       setShowNameError(true);
       return;
@@ -59,9 +62,27 @@ export const useForm = () => {
     setTodos([...todos, { ...form, id }]);
   };
 
+  const onEdit = (id: number) => {
+    if (!form.name) {
+      setShowNameError(true);
+      return;
+    }
+
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id !== id) return todo;
+
+      return {
+        ...todo,
+        ...form,
+      };
+    });
+    setTodos(updatedTodos);
+  };
+
   return {
     form,
-    onSubmit,
+    onCreate,
+    onEdit,
     showNameError,
     updateCategories,
     updateDate,

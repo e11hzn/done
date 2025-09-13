@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { CalendarDatetimePickerProps } from '@/components/CalenderDatetimePicker';
 import { createTodo, FormData } from '@/actions/createTodo';
-import { getClientCookieConfig } from '@/utils/cookieClient';
 import { useTodos } from '@/components/AppProvider';
 
 export const useForm = () => {
@@ -10,7 +9,7 @@ export const useForm = () => {
     name: '',
   });
   const [showNameError, setShowNameError] = useState(false);
-  const { setTodos } = useTodos();
+  const { todos, setTodos } = useTodos();
 
   const updateName = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNameError(false);
@@ -56,11 +55,10 @@ export const useForm = () => {
     // TODO: if user is logged in --> call server action instead of below
     // await createTodo(form);
 
-    const { list } = await getClientCookieConfig();
-    const id = list.length ? list[list.length - 1].id + 1 : 0;
+    const id = todos.length ? todos[todos.length - 1].id + 1 : 0;
 
     setTodos([
-      ...list,
+      ...todos,
       {
         ...form,
         id,

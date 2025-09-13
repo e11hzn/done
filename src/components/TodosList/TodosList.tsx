@@ -1,6 +1,9 @@
 'use client';
 
 import { useAppContext } from '@/components/AppProvider';
+import { DeleteIcon } from '@/icons/DeleteIcon';
+import { IconButton } from '../IconButton';
+import { PencilIcon } from '@/icons/PencilIcon';
 
 export const TodosList = () => {
   const { locale, todos } = useAppContext();
@@ -18,9 +21,17 @@ export const TodosList = () => {
             {todos.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col w-full border-2 border-gray-200 p-2 rounded gap-4"
+                className="flex flex-col w-full border-2 border-gray-200 p-2 rounded gap-4 relative"
               >
                 <h3 className="text-2xl font-bold">{item.name}</h3>
+                <IconButton
+                  className="absolute top-0 right-0"
+                  icon={DeleteIcon}
+                />
+                <IconButton
+                  className="absolute top-0 right-7"
+                  icon={PencilIcon}
+                />
                 {item.date && (
                   <span className="italic">
                     Due date:&nbsp;

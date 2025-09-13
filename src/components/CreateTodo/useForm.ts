@@ -1,10 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { CalendarDatetimePickerProps } from '@/components/CalenderDatetimePicker';
 import { createTodo, FormData } from '@/actions/createTodo';
-import {
-  getClientCookieConfig,
-  setClientCookieConfig,
-} from '@/utils/cookieClient';
+import { getClientCookieConfig } from '@/utils/cookieClient';
+import { useTodos } from '@/components/AppProvider';
 
 export const useForm = () => {
   const [form, setForm] = useState<FormData>({
@@ -12,6 +10,7 @@ export const useForm = () => {
     name: '',
   });
   const [showNameError, setShowNameError] = useState(false);
+  const { setTodos } = useTodos();
 
   const updateName = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNameError(false);
@@ -60,15 +59,13 @@ export const useForm = () => {
     const { list } = await getClientCookieConfig();
     const id = list.length ? list[list.length - 1].id + 1 : 0;
 
-    setClientCookieConfig({
-      list: [
-        ...list,
-        {
-          ...form,
-          id,
-        },
-      ],
-    });
+    setTodos([
+      ...list,
+      {
+        ...form,
+        id,
+      },
+    ]);
   };
 
   return {

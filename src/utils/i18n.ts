@@ -6,7 +6,6 @@ import ja from '@/translations/ja.json';
 import ko from '@/translations/ko.json';
 import sv from '@/translations/sv.json';
 import zh from '@/translations/zh.json';
-import { getServerCookieConfig } from '@/utils/cookieServer';
 
 export const locales = [
   { flag: '🇸🇪', locale: 'sv-SE', name: 'svenska' },
@@ -21,9 +20,8 @@ export const locales = [
   { flag: '🇯🇵', locale: 'ja-JP', name: '日本語' },
 ];
 
-export const getTranslations = async () => {
-  const currentConfigInStore = await getServerCookieConfig();
-  const translationFile = currentConfigInStore.locale.split('-')[0];
+export const getTranslations = (locale: string) => {
+  const translationFile = locale.split('-')[0];
 
   switch (translationFile) {
     case 'de':

@@ -3,11 +3,7 @@
 import { CalendarDatetimePicker } from '@/components/CalenderDatetimePicker';
 import { useForm } from './useForm';
 
-export type CreateTodoProps = {
-  locale: string;
-};
-
-export const CreateTodo = ({ locale }: CreateTodoProps) => {
+export const CreateTodo = () => {
   const {
     form,
     onSubmit,
@@ -44,11 +40,7 @@ export const CreateTodo = ({ locale }: CreateTodoProps) => {
       </label>
       <label className="flex flex-col">
         Date:
-        <CalendarDatetimePicker
-          date={form.date}
-          locale={locale}
-          onChange={updateDate}
-        />
+        <CalendarDatetimePicker date={form.date} onChange={updateDate} />
       </label>
       <label className="flex flex-col">
         Categories (separate with a space):

@@ -1,14 +1,13 @@
-import { Todo } from '@/utils/types';
+'use client';
 
-export type TodosListProps = {
-  list: Todo[];
-  locale: string;
-};
+import { useAppContext } from '@/components/AppProvider';
 
-export const TodosList = ({ list, locale }: TodosListProps) => {
+export const TodosList = () => {
+  const { locale, todos } = useAppContext();
+
   return (
     <div className="border-t-3 border-gray-600 w-full pt-4">
-      {list.length === 0 ? (
+      {todos.length === 0 ? (
         <p className="text-amber-600">
           No Todos created yet, create one now above!
         </p>
@@ -16,7 +15,7 @@ export const TodosList = ({ list, locale }: TodosListProps) => {
         <>
           <h2 className="text-2xl text-orange-900 mb-4">Todos List</h2>
           <div className="flex flex-col gap-6">
-            {list.map((item) => (
+            {todos.map((item) => (
               <div
                 key={item.id}
                 className="flex flex-col w-full border-2 border-gray-200 p-2 rounded gap-4"

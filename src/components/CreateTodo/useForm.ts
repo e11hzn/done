@@ -56,14 +56,7 @@ export const useForm = () => {
     // await createTodo(form);
 
     const id = todos.length ? todos[todos.length - 1].id + 1 : 0;
-
-    setTodos([
-      ...todos,
-      {
-        ...form,
-        id,
-      },
-    ]);
+    setTodos([...todos, { ...form, id }]);
   };
 
   return {

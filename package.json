@@ -11,6 +11,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "motion": "^12.23.12",
     "next": "15.5.3",
     "react": "19.1.0",
     "react-datetime-picker": "^7.0.1",

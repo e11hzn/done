@@ -22,10 +22,13 @@
     "nameError": "Name ist erforderlich"
   },
   "todosList": {
+    "datePassed": "Fälligkeitsdatum überschritten",
     "done": "Erledigt",
+    "dueDate": "Fälligkeitsdatum",
     "emptyList": "Noch keine Todos erstellt, erstellen Sie jetzt oben eines!",
     "no": "Nein",
     "title": "Todos List",
-    "yes": "Ja"
+    "yes": "Ja",
+    "withinOneDay": "Innerhalb des letzten Tages"
   }
 }

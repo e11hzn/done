@@ -22,10 +22,13 @@
     "nameError": "Name is required"
   },
   "todosList": {
+    "datePassed": "Due date passed",
     "done": "Done",
+    "dueDate": "Due date",
     "emptyList": "No Todos created yet, create one now above!",
     "no": "no",
     "title": "Todos List",
-    "yes": "yes"
+    "yes": "yes",
+    "withinOneDay": "Within last day"
   }
 }

@@ -22,10 +22,13 @@
     "nameError": "El nombre es obligatorio"
   },
   "todosList": {
+    "datePassed": "Fecha de vencimiento pasada",
     "done": "Hecho",
+    "dueDate": "Fecha de vencimiento",
     "emptyList": "¡Aún no hay ningún Todos creado, crea uno ahora arriba!",
     "no": "No",
     "title": "Lista de tareas pendientes",
-    "yes": "Sí"
+    "yes": "Sí",
+    "withinOneDay": "En el último día"
   }
 }

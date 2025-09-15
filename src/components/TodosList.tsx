@@ -7,6 +7,7 @@ import { IconButton } from './IconButton';
 import { PencilIcon } from '@/icons/PencilIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
+import { AlertIcon } from '@/icons/AlertIcon';
 
 export const TodosList = () => {
   const {
@@ -70,70 +71,102 @@ export const TodosList = () => {
             </div>
             <div className="flex flex-col gap-6">
               <AnimatePresence>
-                {todos.map((item) => (
-                  <motion.div
-                    animate={{ opacity: 1, height: 'auto' }}
-                    className="flex flex-col w-full border-2 border-gray-200 p-2 rounded gap-4 relative"
-                    exit={{ opacity: 0, height: 0 }}
-                    initial={{ opacity: 0, height: 0 }}
-                    key={item.id}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="flex gap-4 items-center">
-                      <h3 className="text-2xl font-bold">{item.name}</h3>
-                      <div className="flex justify-end gap-4 flex-1">
-                        <IconButton
-                          icon={PencilIcon}
-                          onClick={() => setEditTodo(item)}
+                {todos.map((item) => {
+                  let datePassed = false;
+                  let withinOneDay = false;
+                  if (!item.done && item.date) {
+                    const currentTime = new Date().getTime();
+                    const itemTime = new Date(item.date as string).getTime();
+                    datePassed = currentTime > itemTime;
+                    withinOneDay = itemTime - currentTime < 24 * 3600 * 1000;
+                  }
+
+                  return (
+                    <motion.div
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className="flex flex-col w-full border-gray-200 border-2 p-2 rounded gap-4 relative"
+                      exit={{ opacity: 0, height: 0 }}
+                      initial={{ opacity: 0, height: 0 }}
+                      key={item.id}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <div className="flex gap-4 items-center">
+                        <h3 className="text-2xl font-bold">{item.name}</h3>
+                        <div className="flex justify-end gap-4 flex-1">
+                          <IconButton
+                            icon={PencilIcon}
+                            onClick={() => setEditTodo(item)}
+                          />
+                          <IconButton
+                            icon={DeleteIcon}
+                            onClick={() => onDeleteTodo(item.id)}
+                          />
+                        </div>
+                      </div>
+                      {item.date && (
+                        <div className="flex flex-col">
+                          <span className="italic">
+                            {t.todosList.dueDate}:&nbsp;
+                            {new Date(item.date as string).toLocaleString(
+                              locale,
+                            )}
+                          </span>
+                          <span className="italic">
+                            {datePassed ? (
+                              <div className="flex">
+                                <AlertIcon fill="red" />
+                                <span className="ml-2">
+                                  {t.todosList.datePassed}
+                                </span>
+                              </div>
+                            ) : (
+                              withinOneDay && (
+                                <div className="flex">
+                                  <AlertIcon fill="orange" />
+                                  <span className="ml-2">
+                                    {t.todosList.withinOneDay}
+                                  </span>
+                                </div>
+                              )
+                            )}
+                          </span>
+                        </div>
+                      )}
+                      {item.description && (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: item.description.replace(
+                              /(?:\r\n|\r|\n)/g,
+                              '<br>',
+                            ),
+                          }}
                         />
+                      )}
+                      {item.categories.length !== 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {item.categories.map((category) => (
+                            <div
+                              key={category}
+                              className="border-gray-200 border-2 rounded p-1"
+                            >
+                              {category}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div className="flex gap-4 justify-between items-center border-t-2 border-gray-200 pt-2">
+                        <span>
+                          {`${t.todosList.done}: ${item.done ? t.todosList.yes : t.todosList.no}`}
+                        </span>
                         <IconButton
-                          icon={DeleteIcon}
-                          onClick={() => onDeleteTodo(item.id)}
+                          icon={CheckIcon}
+                          iconFill={item.done ? 'green' : undefined}
+                          onClick={() => onTodoDone(item.id)}
                         />
                       </div>
-                    </div>
-                    {item.date && (
-                      <span className="italic">
-                        Due date:&nbsp;
-                        {new Date(item.date as string).toLocaleDateString(
-                          locale,
-                        )}
-                      </span>
-                    )}
-                    {item.description && (
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: item.description.replace(
-                            /(?:\r\n|\r|\n)/g,
-                            '<br>',
-                          ),
-                        }}
-                      />
-                    )}
-                    {item.categories.length !== 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {item.categories.map((category) => (
-                          <div
-                            key={category}
-                            className="border-gray-200 border-2 rounded p-1"
-                          >
-                            {category}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    <div className="flex gap-4 justify-between items-center border-t-2 border-gray-200 pt-2">
-                      <span>
-                        {`${t.todosList.done}: ${item.done ? t.todosList.yes : t.todosList.no}`}
-                      </span>
-                      <IconButton
-                        icon={CheckIcon}
-                        iconFill={item.done ? 'green' : undefined}
-                        onClick={() => onTodoDone(item.id)}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </AnimatePresence>
             </div>
           </motion.div>

@@ -22,10 +22,13 @@
     "nameError": "名前は必須です"
   },
   "todosList": {
+    "datePassed": "期限が過ぎました",
     "done": "終わり",
+    "dueDate": "期日",
     "emptyList": "まだタスクが作成されていません。今すぐ上でタスクを作成してください。",
     "no": "いいえ",
     "title": "やることリスト",
-    "yes": "はい"
+    "yes": "はい",
+    "withinOneDay": "過去1日以内に"
   }
 }

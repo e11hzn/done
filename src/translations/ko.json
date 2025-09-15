@@ -22,10 +22,13 @@
     "nameError": "이름이 필요합니다"
   },
   "todosList": {
+    "datePassed": "마감일이 지났습니다",
     "done": "완료",
+    "dueDate": "마감일",
     "emptyList": "아직 생성된 할 일이 없습니다. 지금 위에서 생성하세요!",
     "no": "아니요",
     "title": "할 일 목록",
-    "yes": "예"
+    "yes": "예",
+    "withinOneDay": "마지막 날 안에"
   }
 }

@@ -22,10 +22,13 @@
     "nameError": "Namn krävs"
   },
   "todosList": {
+    "datePassed": "Slutdatum passerat",
     "done": "Klar",
+    "dueDate": "Slutdatum",
     "emptyList": "Inga uppgifter skapade än, skapa en nu ovan!",
     "no": "nej",
     "title": "Att göra lista",
-    "yes": "ja"
+    "yes": "ja",
+    "withinOneDay": "Inom det sista dygnet"
   }
 }

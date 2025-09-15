@@ -22,10 +22,13 @@
     "nameError": "姓名为必填项"
   },
   "todosList": {
+    "datePassed": "截止日期已过",
     "done": "完毕",
+    "dueDate": "到期日",
     "emptyList": "尚未创建任务，请立即在上面创建一个！",
     "no": "不",
     "title": "待办事项列表",
-    "yes": "是的"
+    "yes": "是的",
+    "withinOneDay": "在过去一天内"
   }
 }

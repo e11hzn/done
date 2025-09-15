@@ -22,10 +22,13 @@
     "nameError": "Le nom est obligatoire"
   },
   "todosList": {
+    "datePassed": "Date d'échéance dépassée",
     "done": "Fait",
+    "dueDate": "Date d'échéance",
     "emptyList": "Aucun Todos n'a encore été créé, créez-en un maintenant ci-dessus !",
     "no": "Non",
     "title": "Liste de tâches",
-    "yes": "Oui"
+    "yes": "Oui",
+    "withinOneDay": "Au cours du dernier jour"
   }
 }

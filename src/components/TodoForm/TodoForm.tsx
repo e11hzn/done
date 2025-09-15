@@ -53,7 +53,7 @@ export const TodoForm = (props: TodoFormProps) => {
           value={form.name}
         />
         {showNameError && (
-          <span className="text-red-500 text-sm">Name is required</span>
+          <span className="text-red-500 text-sm">{t.todoForm.nameError}</span>
         )}
       </label>
       <label className="flex flex-col">
@@ -86,7 +86,7 @@ export const TodoForm = (props: TodoFormProps) => {
         </button>
         {showCancel && (
           <button
-            className="mt-4 bg-black text-white border-2 border-gray-200 rounded cursor-pointer px-3 py-1 font-bold"
+            className="mt-4 bg-white text-black border-2 border-gray-200 rounded cursor-pointer px-3 py-1 font-bold"
             onClick={onCancel}
           >
             {t.todoForm.cancelButton}

@@ -6,9 +6,17 @@ import { DeleteIcon } from '@/icons/DeleteIcon';
 import { IconButton } from './IconButton';
 import { PencilIcon } from '@/icons/PencilIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
+import { PlusIcon } from '@/icons/PlusIcon';
 
 export const TodosList = () => {
-  const { locale, setEditTodo, setTodos, todos } = useAppContext();
+  const {
+    createButtonClicked,
+    locale,
+    setCreateButtonClicked,
+    setEditTodo,
+    setTodos,
+    todos,
+  } = useAppContext();
 
   const onDeleteTodo = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
@@ -47,7 +55,16 @@ export const TodosList = () => {
             key="has-todos"
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-2xl text-orange-900 mb-4">Todos List</h2>
+            <div className="flex justify-between">
+              <h2 className="text-2xl text-orange-900 mb-4">Todos List</h2>
+              {!createButtonClicked && (
+                <IconButton
+                  className="h-8 w-8"
+                  icon={PlusIcon}
+                  onClick={setCreateButtonClicked}
+                />
+              )}
+            </div>
             <div className="flex flex-col gap-6">
               <AnimatePresence>
                 {todos.map((item) => (

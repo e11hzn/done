@@ -3,7 +3,6 @@ import { getServerCookieConfig } from '@/utils/cookieServer';
 import { TodosList } from '@/components/TodosList';
 import { AppProvider } from '@/components/AppProvider';
 import { CreateEditForm } from '@/components/CreateEditForm';
-import { PlusIconButton } from '@/components/PlusIconButton';
 
 export default async function Home() {
   const cookieConfig = await getServerCookieConfig();
@@ -11,13 +10,10 @@ export default async function Home() {
   return (
     <AppProvider cookieConfig={cookieConfig}>
       <div className="font-sans min-h-screen p-4">
-        <main className="flex flex-col gap-6 w-full max-w-[600px] mx-auto">
-          <div className="relative">
-            <h1 className="text-4xl w-full border-b-4 border-gray-400 pb-2 text-orange-900">
-              Done Todos Now
-            </h1>
-            <PlusIconButton className="absolute top-[3px] right-15 h-8 w-8" />
-            <LocalePicker className="absolute top-0 right-0 text-2xl" />
+        <main className="flex flex-col gap-6 w-full max-w-[1024px] mx-auto">
+          <div className="flex justify-between items-center border-b-4 border-gray-400 pb-2 w-full">
+            <h1 className="text-4xl text-orange-900">Done Todos Now</h1>
+            <LocalePicker />
           </div>
           <CreateEditForm />
           <TodosList />

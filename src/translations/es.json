@@ -1,5 +1,31 @@
 {
+  "appHeader": {
+    "title": "Lista hecha"
+  },
   "localePicker": {
     "selectLanguage": "Elige tu idioma"
+  },
+  "todoForm": {
+    "cancelButton": "Cancelar",
+    "categories": "Categorías (separadas con un espacio)",
+    "create": {
+      "addButton": "Agregar",
+      "title": "Crear una tarea"
+    },
+    "date": "Fecha",
+    "description": "Descripción",
+    "edit": {
+      "updateButton": "Actualizar",
+      "title": "Actualizar"
+    },
+    "name": "Nombre",
+    "nameError": "El nombre es obligatorio"
+  },
+  "todosList": {
+    "done": "Hecho",
+    "emptyList": "¡Aún no hay ningún Todos creado, crea uno ahora arriba!",
+    "no": "No",
+    "title": "Lista de tareas pendientes",
+    "yes": "Sí"
   }
 }

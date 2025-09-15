@@ -1,5 +1,31 @@
 {
+  "appHeader": {
+    "title": "Lista Klar"
+  },
   "localePicker": {
     "selectLanguage": "Välj ditt språk"
+  },
+  "todoForm": {
+    "cancelButton": "Avbryt",
+    "categories": "Kategorier (separera med mellanslag)",
+    "create": {
+      "addButton": "Skapa",
+      "title": "Skapa en Uppgift"
+    },
+    "date": "Datum",
+    "description": "Beskrivning",
+    "edit": {
+      "updateButton": "Uppdatera",
+      "title": "Uppdatera"
+    },
+    "name": "Namn",
+    "nameError": "Namn krävs"
+  },
+  "todosList": {
+    "done": "Klar",
+    "emptyList": "Inga uppgifter skapade än, skapa en nu ovan!",
+    "no": "nej",
+    "title": "Att göra lista",
+    "yes": "ja"
   }
 }

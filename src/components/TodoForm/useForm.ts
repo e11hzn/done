@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { CalendarDatetimePickerProps } from '@/components/CalenderDatetimePicker';
 import { FormData } from '@/actions/createTodo';
-import { useTodos } from '@/components/AppProvider';
+import { useAppContext } from '@/components/AppProvider';
 import { Todo } from '@/utils/types';
 
 export const useForm = (todo?: Todo) => {
@@ -12,7 +12,7 @@ export const useForm = (todo?: Todo) => {
     },
   );
   const [showNameError, setShowNameError] = useState(false);
-  const { onCancel, setTodos, todos } = useTodos();
+  const { onCancel, setTodos, t, todos } = useAppContext();
 
   const updateName = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNameError(false);
@@ -85,6 +85,7 @@ export const useForm = (todo?: Todo) => {
     onCreate,
     onEdit,
     showNameError,
+    t,
     updateCategories,
     updateDate,
     updateDescription,

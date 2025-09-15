@@ -1,5 +1,31 @@
 {
+  "appHeader": {
+    "title": "リスト準備完了"
+  },
   "localePicker": {
     "selectLanguage": "言語を選択してください"
+  },
+  "todoForm": {
+    "cancelButton": "キャンセル",
+    "categories": "カテゴリー（スペースで区切る）",
+    "create": {
+      "addButton": "追加",
+      "title": "タスクを作成する"
+    },
+    "date": "日付",
+    "description": "説明",
+    "edit": {
+      "updateButton": "アップデート",
+      "title": "アップデート"
+    },
+    "name": "名前",
+    "nameError": "名前は必須です"
+  },
+  "todosList": {
+    "done": "終わり",
+    "emptyList": "まだタスクが作成されていません。今すぐ上でタスクを作成してください。",
+    "no": "いいえ",
+    "title": "やることリスト",
+    "yes": "はい"
   }
 }

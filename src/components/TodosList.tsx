@@ -15,6 +15,7 @@ export const TodosList = () => {
     setCreateButtonClicked,
     setEditTodo,
     setTodos,
+    t,
     todos,
   } = useAppContext();
 
@@ -46,7 +47,7 @@ export const TodosList = () => {
             key="no-todos"
             transition={{ duration: 0.5 }}
           >
-            No Todos created yet, create one now above!
+            {t.todosList.emptyList}
           </motion.p>
         ) : (
           <motion.div
@@ -56,7 +57,9 @@ export const TodosList = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="flex justify-between">
-              <h2 className="text-2xl text-orange-900 mb-4">Todos List</h2>
+              <h2 className="text-2xl text-orange-900 mb-4">
+                {t.todosList.title}
+              </h2>
               {!createButtonClicked && (
                 <IconButton
                   className="h-8 w-8"
@@ -120,7 +123,9 @@ export const TodosList = () => {
                       </div>
                     )}
                     <div className="flex gap-4 justify-between items-center border-t-2 border-gray-200 pt-2">
-                      <span>Done: {item.done ? 'yes' : 'no'}</span>
+                      <span>
+                        {`${t.todosList.done}: ${item.done ? t.todosList.yes : t.todosList.no}`}
+                      </span>
                       <IconButton
                         icon={CheckIcon}
                         iconFill={item.done ? 'green' : undefined}

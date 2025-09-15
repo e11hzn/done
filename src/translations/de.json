@@ -1,5 +1,31 @@
 {
+  "appHeader": {
+    "title": "Liste fertig"
+  },
   "localePicker": {
     "selectLanguage": "Wählen Sie Ihre Sprache"
+  },
+  "todoForm": {
+    "cancelButton": "Stornieren",
+    "categories": "Kategorien (durch Leerzeichen getrennt)",
+    "create": {
+      "addButton": "Hinzufügen",
+      "title": "Erstellen einer Aufgabe"
+    },
+    "date": "Datum",
+    "description": "Beschreibung",
+    "edit": {
+      "updateButton": "Aktualisieren",
+      "title": "Aktualisieren"
+    },
+    "name": "Name",
+    "nameError": "Name ist erforderlich"
+  },
+  "todosList": {
+    "done": "Erledigt",
+    "emptyList": "Noch keine Todos erstellt, erstellen Sie jetzt oben eines!",
+    "no": "Nein",
+    "title": "Todos List",
+    "yes": "Ja"
   }
 }

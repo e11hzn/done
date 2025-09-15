@@ -1,5 +1,31 @@
 {
+  "appHeader": {
+    "title": "Todos Done"
+  },
   "localePicker": {
     "selectLanguage": "Select your language"
+  },
+  "todoForm": {
+    "cancelButton": "Cancel",
+    "categories": "Categories (separate with a space)",
+    "create": {
+      "addButton": "Add",
+      "title": "Create a Todo"
+    },
+    "date": "Date",
+    "description": "Description",
+    "edit": {
+      "updateButton": "Update",
+      "title": "Update"
+    },
+    "name": "Name",
+    "nameError": "Name is required"
+  },
+  "todosList": {
+    "done": "Done",
+    "emptyList": "No Todos created yet, create one now above!",
+    "no": "no",
+    "title": "Todos List",
+    "yes": "yes"
   }
 }

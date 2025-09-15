@@ -1,5 +1,31 @@
 {
+  "appHeader": {
+    "title": "清单已准备好"
+  },
   "localePicker": {
     "selectLanguage": "选择您的语言"
+  },
+  "todoForm": {
+    "cancelButton": "取消",
+    "categories": "类别（以空格分隔）",
+    "create": {
+      "addButton": "添加",
+      "title": "创建待办事项"
+    },
+    "date": "日期",
+    "description": "描述",
+    "edit": {
+      "updateButton": "更新",
+      "title": "更新"
+    },
+    "name": "姓名",
+    "nameError": "姓名为必填项"
+  },
+  "todosList": {
+    "done": "完毕",
+    "emptyList": "尚未创建任务，请立即在上面创建一个！",
+    "no": "不",
+    "title": "待办事项列表",
+    "yes": "是的"
   }
 }

@@ -24,21 +24,28 @@ export const TodoForm = (props: TodoFormProps) => {
     onCreate,
     onEdit,
     showNameError,
+    t,
     updateCategories,
     updateDate,
     updateDescription,
     updateName,
   } = useForm(todo);
 
-  const title = type === 'edit' ? `Edit "${todo?.name}"` : 'Create a Todo';
+  const title =
+    type === 'edit'
+      ? `${t.todoForm.edit.title} "${todo?.name}"`
+      : t.todoForm.create.title;
   const action = type === 'edit' ? onEdit : onCreate;
-  const buttonTitle = type === 'edit' ? 'Update' : 'Add';
+  const buttonTitle =
+    type === 'edit'
+      ? t.todoForm.edit.updateButton
+      : t.todoForm.create.addButton;
 
   return (
     <div className="flex flex-col gap-4 w-full">
       <h2 className="text-2xl text-orange-900">{title}</h2>
       <label className="flex flex-col">
-        Name:
+        {`${t.todoForm.name}:`}
         <input
           className="border-2 border-gray-300 rounded"
           onChange={updateName}
@@ -50,7 +57,7 @@ export const TodoForm = (props: TodoFormProps) => {
         )}
       </label>
       <label className="flex flex-col">
-        <span>Description:</span>
+        <span>{`${t.todoForm.description}:`}</span>
         <textarea
           className="border-2 border-gray-300 rounded"
           onChange={updateDescription}
@@ -59,11 +66,11 @@ export const TodoForm = (props: TodoFormProps) => {
         />
       </label>
       <label className="flex flex-col">
-        Date:
+        {`${t.todoForm.date}:`}
         <CalendarDatetimePicker date={form.date} onChange={updateDate} />
       </label>
       <label className="flex flex-col">
-        Categories (separate with a space):
+        {`${t.todoForm.categories}:`}
         <input
           className="border-2 border-gray-300 rounded"
           onChange={updateCategories}
@@ -82,7 +89,7 @@ export const TodoForm = (props: TodoFormProps) => {
             className="mt-4 bg-black text-white border-2 border-gray-200 rounded cursor-pointer px-3 py-1 font-bold"
             onClick={onCancel}
           >
-            Cancel
+            {t.todoForm.cancelButton}
           </button>
         )}
       </div>

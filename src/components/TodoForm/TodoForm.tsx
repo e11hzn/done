@@ -32,7 +32,7 @@ export const TodoForm = (props: TodoFormProps) => {
   const buttonTitle = type === 'edit' ? 'Update' : 'Add';
 
   return (
-    <div className="flex flex-col gap-4 w-full border-t-3 border-gray-600 pt-4">
+    <div className="flex flex-col gap-4 w-full">
       <h2 className="text-2xl text-orange-900">{title}</h2>
       <label className="flex flex-col">
         Name:

@@ -5,29 +5,37 @@ import { useAppContext } from './AppProvider';
 import { TodoForm } from './TodoForm/TodoForm';
 
 export const CreateEditForm = () => {
-  const { editTodo } = useAppContext();
+  const { createButtonClicked, editTodo, todos } = useAppContext();
+
+  if (todos.length && !createButtonClicked) {
+    return null;
+  }
 
   return (
     <AnimatePresence mode="wait">
-      {!editTodo ? (
-        <motion.div
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
-          key="create"
-          transition={{ duration: 0.5 }}
-        >
-          <TodoForm type="create" />
-        </motion.div>
-      ) : (
-        <motion.div
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
-          key="edit"
-          transition={{ duration: 0.5 }}
-        >
-          <TodoForm todo={editTodo} type="edit" />
-        </motion.div>
-      )}
+      <div className="border-b-3 border-gray-600 pb-8">
+        {todos.length === 0 || createButtonClicked ? (
+          <motion.div
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            key="create"
+            transition={{ duration: 0.5 }}
+          >
+            <TodoForm type="create" />
+          </motion.div>
+        ) : !!editTodo ? (
+          <motion.div
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            key="edit"
+            transition={{ duration: 0.5 }}
+          >
+            <TodoForm todo={editTodo} type="edit" />
+          </motion.div>
+        ) : null}
+      </div>
     </AnimatePresence>
   );
 };

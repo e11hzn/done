@@ -10,8 +10,10 @@ import { Todo } from '@/utils/types';
 import { createContext, useContext, useState } from 'react';
 
 type AppState = {
+  createButtonClicked: boolean;
   editTodo?: Todo;
   locale: string;
+  setCreateButtonClicked: () => void;
   setEditTodo: (todo?: Todo) => void;
   setLocale: (locale: string) => void;
   setTodos: (todos: Todo[]) => void;
@@ -43,6 +45,7 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
   const [translations, setTranslations] = useState(getTranslations(locale));
   const [todos, setTodos] = useState(list);
   const [editTodo, setEditTodo] = useState<Todo | undefined>();
+  const [createButtonClicked, setCreateButtonClicked] = useState(false);
 
   const updateLocale = (newLocale: string) => {
     setLocale(newLocale);
@@ -54,13 +57,20 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
     setTodos(newTodos);
     setClientCookieConfig({ list: newTodos });
     setEditTodo(undefined);
+    setCreateButtonClicked(false);
+  };
+
+  const updateCreateButtonClicked = () => {
+    setCreateButtonClicked(!createButtonClicked);
   };
 
   return (
     <AppContext.Provider
       value={{
+        createButtonClicked,
         editTodo,
         locale,
+        setCreateButtonClicked: updateCreateButtonClicked,
         setEditTodo,
         setLocale: updateLocale,
         setTodos: updateTodos,

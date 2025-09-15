@@ -14,7 +14,7 @@ export const TodosList = () => {
   };
 
   return (
-    <div className="border-t-3 border-gray-600 w-full pt-4">
+    <div className="w-full">
       <AnimatePresence>
         {todos.length === 0 ? (
           <motion.p

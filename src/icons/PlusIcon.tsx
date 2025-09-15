@@ -1,6 +1,18 @@
-export const PlusIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <title>plus</title>
-    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+export type PlusIconProps = {
+  fill: string;
+};
+
+export const PlusIcon = ({ fill }: PlusIconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    height="32"
+    width="32"
+  >
+    <title>plus-circle-outline</title>
+    <path
+      d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z"
+      style={{ fill }}
+    />
   </svg>
 );

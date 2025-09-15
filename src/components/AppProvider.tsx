@@ -13,6 +13,7 @@ type AppState = {
   createButtonClicked: boolean;
   editTodo?: Todo;
   locale: string;
+  onCancel: () => void;
   setCreateButtonClicked: () => void;
   setEditTodo: (todo?: Todo) => void;
   setLocale: (locale: string) => void;
@@ -30,8 +31,8 @@ export const useLocale = () => {
   return { locale, setLocale };
 };
 export const useTodos = () => {
-  const { todos, setTodos } = useAppContext();
-  return { todos, setTodos };
+  const { onCancel, todos, setTodos } = useAppContext();
+  return { onCancel, todos, setTodos };
 };
 
 type AppProviderProps = {
@@ -64,14 +65,25 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
     setCreateButtonClicked(!createButtonClicked);
   };
 
+  const updateEditTodo = (todo: Todo | undefined) => {
+    setCreateButtonClicked(false);
+    setEditTodo(todo);
+  };
+
+  const onCancel = () => {
+    setCreateButtonClicked(false);
+    setEditTodo(undefined);
+  };
+
   return (
     <AppContext.Provider
       value={{
         createButtonClicked,
         editTodo,
         locale,
+        onCancel,
         setCreateButtonClicked: updateCreateButtonClicked,
-        setEditTodo,
+        setEditTodo: updateEditTodo,
         setLocale: updateLocale,
         setTodos: updateTodos,
         t: translations,

@@ -7,7 +7,7 @@ import { TodoForm } from './TodoForm/TodoForm';
 export const CreateEditForm = () => {
   const { createButtonClicked, editTodo, todos } = useAppContext();
 
-  if (todos.length && !createButtonClicked) {
+  if (todos.length && !editTodo && !createButtonClicked) {
     return null;
   }
 
@@ -22,7 +22,7 @@ export const CreateEditForm = () => {
             key="create"
             transition={{ duration: 0.5 }}
           >
-            <TodoForm type="create" />
+            <TodoForm showCancel={!!todos.length} type="create" />
           </motion.div>
         ) : !!editTodo ? (
           <motion.div

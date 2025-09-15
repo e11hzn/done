@@ -6,6 +6,7 @@ import { Todo } from '@/utils/types';
 
 export type TodoFormProps =
   | {
+      showCancel: boolean;
       type: 'create';
     }
   | {
@@ -15,9 +16,11 @@ export type TodoFormProps =
 
 export const TodoForm = (props: TodoFormProps) => {
   const { type } = props;
+  const showCancel = type === 'create' ? props.showCancel : true;
   const todo = type === 'edit' ? props.todo : undefined;
   const {
     form,
+    onCancel,
     onCreate,
     onEdit,
     showNameError,
@@ -67,12 +70,22 @@ export const TodoForm = (props: TodoFormProps) => {
           value={form.categories.join(' ')}
         />
       </label>
-      <button
-        className="mt-4 bg-black text-white border-2 border-gray-200 rounded cursor-pointer py-1 font-bold"
-        onClick={action}
-      >
-        {buttonTitle}
-      </button>
+      <div className="flex gap-6 w-full">
+        <button
+          className="mt-4 bg-black text-white border-2 border-gray-200 rounded cursor-pointer py-1 font-bold flex-1"
+          onClick={action}
+        >
+          {buttonTitle}
+        </button>
+        {showCancel && (
+          <button
+            className="mt-4 bg-black text-white border-2 border-gray-200 rounded cursor-pointer px-3 py-1 font-bold"
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+        )}
+      </div>
     </div>
   );
 };

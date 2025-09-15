@@ -11,9 +11,9 @@ export const LocalePicker = ({ className }: LocalePickerProps) => {
   const { locale, setLocale } = useAppContext();
 
   return (
-    <label className={className}>
+    <div className={className}>
       <select
-        className="text-center border-2 border-gray-300 rounded ml-1"
+        className="cursor-pointer text-center border-2 border-gray-300 rounded ml-1"
         defaultValue={locale}
         id="locale-picker"
         onChange={(e) => setLocale(e.target.value)}
@@ -24,6 +24,6 @@ export const LocalePicker = ({ className }: LocalePickerProps) => {
           </option>
         ))}
       </select>
-    </label>
+    </div>
   );
 };

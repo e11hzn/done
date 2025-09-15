@@ -12,7 +12,7 @@ export const useForm = (todo?: Todo) => {
     },
   );
   const [showNameError, setShowNameError] = useState(false);
-  const { setTodos, todos } = useTodos();
+  const { onCancel, setTodos, todos } = useTodos();
 
   const updateName = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNameError(false);
@@ -81,6 +81,7 @@ export const useForm = (todo?: Todo) => {
 
   return {
     form,
+    onCancel,
     onCreate,
     onEdit,
     showNameError,

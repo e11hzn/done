@@ -16,7 +16,7 @@ export default async function Home() {
             <h1 className="text-4xl w-full border-b-4 border-gray-400 pb-2 text-orange-900">
               Done Todos Now
             </h1>
-            <PlusIconButton className="absolute top-0 right-14" />
+            <PlusIconButton className="absolute top-[6px] right-14" />
             <LocalePicker className="absolute top-0 right-0 text-2xl" />
           </div>
           <CreateEditForm />

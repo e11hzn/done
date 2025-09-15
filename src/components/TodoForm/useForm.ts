@@ -62,17 +62,17 @@ export const useForm = (todo?: Todo) => {
     setTodos([...todos, { ...form, id }]);
   };
 
-  const onEdit = (id: number) => {
+  const onEdit = () => {
     if (!form.name) {
       setShowNameError(true);
       return;
     }
 
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id !== id) return todo;
+    const updatedTodos = todos.map((thisTodo) => {
+      if (thisTodo.id !== todo!.id) return thisTodo;
 
       return {
-        ...todo,
+        ...thisTodo,
         ...form,
       };
     });

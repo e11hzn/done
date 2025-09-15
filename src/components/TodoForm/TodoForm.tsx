@@ -31,7 +31,7 @@ export const TodoForm = (props: TodoFormProps) => {
   } = useForm(todo);
 
   const title = type === 'edit' ? `Edit "${todo?.name}"` : 'Create a Todo';
-  const action = type === 'edit' ? () => onEdit(todo!.id) : onCreate;
+  const action = type === 'edit' ? onEdit : onCreate;
   const buttonTitle = type === 'edit' ? 'Update' : 'Add';
 
   return (

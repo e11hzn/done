@@ -5,12 +5,26 @@ import { useAppContext } from '@/components/AppProvider';
 import { DeleteIcon } from '@/icons/DeleteIcon';
 import { IconButton } from './IconButton';
 import { PencilIcon } from '@/icons/PencilIcon';
+import { CheckIcon } from '@/icons/CheckIcon';
 
 export const TodosList = () => {
   const { locale, setEditTodo, setTodos, todos } = useAppContext();
 
-  const deleteTodo = (id: number) => {
+  const onDeleteTodo = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const onTodoDone = (id: number) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id !== id) return todo;
+
+        return {
+          ...todo,
+          done: !todo.done,
+        };
+      }),
+    );
   };
 
   return (
@@ -45,17 +59,19 @@ export const TodosList = () => {
                     key={item.id}
                     transition={{ duration: 0.5 }}
                   >
-                    <h3 className="text-2xl font-bold">{item.name}</h3>
-                    <IconButton
-                      className="absolute top-0 right-0"
-                      icon={DeleteIcon}
-                      onClick={() => deleteTodo(item.id)}
-                    />
-                    <IconButton
-                      className="absolute top-0 right-7"
-                      icon={PencilIcon}
-                      onClick={() => setEditTodo(item)}
-                    />
+                    <div className="flex gap-4 items-center">
+                      <h3 className="text-2xl font-bold">{item.name}</h3>
+                      <div className="flex justify-end gap-4 flex-1">
+                        <IconButton
+                          icon={PencilIcon}
+                          onClick={() => setEditTodo(item)}
+                        />
+                        <IconButton
+                          icon={DeleteIcon}
+                          onClick={() => onDeleteTodo(item.id)}
+                        />
+                      </div>
+                    </div>
                     {item.date && (
                       <span className="italic">
                         Due date:&nbsp;
@@ -86,9 +102,14 @@ export const TodosList = () => {
                         ))}
                       </div>
                     )}
-                    <span className="border-t-2 border-gray-200 pt-2">
-                      Done: {item.done ? 'yes' : 'no'}
-                    </span>
+                    <div className="flex gap-4 justify-between items-center border-t-2 border-gray-200 pt-2">
+                      <span>Done: {item.done ? 'yes' : 'no'}</span>
+                      <IconButton
+                        icon={CheckIcon}
+                        iconFill={item.done ? 'green' : undefined}
+                        onClick={() => onTodoDone(item.id)}
+                      />
+                    </div>
                   </motion.div>
                 ))}
               </AnimatePresence>

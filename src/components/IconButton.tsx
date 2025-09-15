@@ -2,10 +2,11 @@ import { useState } from 'react';
 
 export type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon: React.FC<{ fill: string }>;
+  iconFill?: string;
 };
 
 export const IconButton = (props: IconButtonProps) => {
-  const { children, className, icon: Icon, ...restProps } = props;
+  const { children, className, icon: Icon, iconFill, ...restProps } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -15,7 +16,7 @@ export const IconButton = (props: IconButtonProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Icon fill={isHovered ? '#0078d7' : 'black'} />
+      <Icon fill={isHovered ? '#0078d7' : (iconFill ?? 'black')} />
     </button>
   );
 };

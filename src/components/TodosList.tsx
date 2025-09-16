@@ -155,12 +155,18 @@ export const TodosList = () => {
                         </div>
                       )}
                       <div className="flex gap-4 justify-between items-center border-t-2 border-gray-200 pt-2">
-                        <span>
-                          {`${t.todosList.done}: ${item.done ? t.todosList.yes : t.todosList.no}`}
-                        </span>
+                        <div>
+                          <span>{`${t.todosList.done}: `}</span>
+                          <span
+                            className={
+                              item.done ? 'text-green-600' : 'text-red-700'
+                            }
+                          >
+                            {item.done ? t.todosList.yes : t.todosList.no}
+                          </span>
+                        </div>
                         <IconButton
                           icon={CheckIcon}
-                          iconFill={item.done ? 'green' : undefined}
                           onClick={() => onTodoDone(item.id)}
                         />
                       </div>

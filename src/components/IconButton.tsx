@@ -12,7 +12,7 @@ export const IconButton = (props: IconButtonProps) => {
   return (
     <button
       {...restProps}
-      className={`w-6 h-6 cursor-pointer ${className}`}
+      className={`w-6 h-6 cursor-pointer ${className ?? ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

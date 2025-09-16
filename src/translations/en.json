@@ -7,7 +7,10 @@
   },
   "sidebar": {
     "filterSort": {
-      "title": "Filter and Sort"
+      "title": "Filter and Sort",
+      "filter": {
+        "title": "Categories to filter on"
+      }
     }
   },
   "todoForm": {

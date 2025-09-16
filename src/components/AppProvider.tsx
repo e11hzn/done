@@ -7,15 +7,18 @@ import {
 } from '@/utils/cookieClient';
 import { getTranslations } from '@/utils/i18n';
 import { Todo } from '@/utils/types';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useRef, useState } from 'react';
 
 type AppState = {
+  categories: Todo['categories'];
   createButtonClicked: boolean;
   editTodo?: Todo;
+  filteredCategories: Todo['categories'];
   locale: string;
   onCancel: () => void;
   setCreateButtonClicked: () => void;
   setEditTodo: (todo?: Todo) => void;
+  setFilteredCategories: (filtered: Todo['categories']) => void;
   setLocale: (locale: string) => void;
   setTodos: (todos: Todo[]) => void;
   t: Record<string, any>;
@@ -34,11 +37,27 @@ export const useTodos = () => {
   const { onCancel, todos, setTodos } = useAppContext();
   return { onCancel, todos, setTodos };
 };
+export const useFilteredCategories = () => {
+  const { categories, filteredCategories, setFilteredCategories } =
+    useAppContext();
+  return { categories, filteredCategories, setFilteredCategories };
+};
 
 type AppProviderProps = {
   children: React.ReactNode;
   cookieConfig: CookieStorageConfig;
 };
+
+const getTodosCategories = (
+  todos: Todo[],
+  locale: string,
+): Todo['categories'] =>
+  todos
+    .reduce<Todo['categories']>((acc, todo) => {
+      const newCategories = todo.categories.filter((cat) => !acc.includes(cat));
+      return acc.concat(newCategories);
+    }, [])
+    .sort((a, b) => a.localeCompare(b, locale));
 
 export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
   const { list, locale: appLocale } = cookieConfig;
@@ -47,6 +66,12 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
   const [todos, setTodos] = useState(list);
   const [editTodo, setEditTodo] = useState<Todo | undefined>();
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
+  const [filteredCategories, setFilteredCategories] = useState<
+    Todo['categories']
+  >([]);
+  const categories = useRef<Todo['categories']>(
+    getTodosCategories(list, locale),
+  );
 
   const updateLocale = (newLocale: string) => {
     setLocale(newLocale);
@@ -59,6 +84,10 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
     setClientCookieConfig({ list: newTodos });
     setEditTodo(undefined);
     setCreateButtonClicked(false);
+    categories.current = getTodosCategories(newTodos, locale);
+    setFilteredCategories(
+      filteredCategories.filter((cat) => categories.current.includes(cat)),
+    );
   };
 
   const updateCreateButtonClicked = () => {
@@ -78,12 +107,15 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
   return (
     <AppContext.Provider
       value={{
+        categories: categories.current,
         createButtonClicked,
         editTodo,
+        filteredCategories,
         locale,
         onCancel,
         setCreateButtonClicked: updateCreateButtonClicked,
         setEditTodo: updateEditTodo,
+        setFilteredCategories,
         setLocale: updateLocale,
         setTodos: updateTodos,
         t: translations,

@@ -7,7 +7,10 @@
   },
   "sidebar": {
     "filterSort": {
-      "title": "Filtrar y ordenar"
+      "title": "Filtrar y ordenar",
+      "filter": {
+        "title": "Categorías para filtrar"
+      }
     }
   },
   "todoForm": {

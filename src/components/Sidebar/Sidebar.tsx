@@ -31,7 +31,7 @@ export const Sidebar = ({ children, onClose, show }: SidebarProps) => {
         transition={{ duration: 0.3 }}
       >
         <div className="text-2xl text-orange-900 pb-2 border-b-2 border-b-gray-200 flex justify-between items-center">
-          <span>{t.sidebar.filterSort.title}</span>
+          <h2>{t.sidebar.filterSort.title}</h2>
           <IconButton icon={CloseIcon} onClick={onClose} />
         </div>
         {children}

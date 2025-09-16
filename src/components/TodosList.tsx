@@ -11,10 +11,12 @@ import { AlertIcon } from '@/icons/AlertIcon';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import { useState } from 'react';
 import { FilterIcon } from '@/icons/FilterIcon';
+import { FilterCategories } from './Sidebar/FilterCategories';
 
 export const TodosList = () => {
   const {
     createButtonClicked,
+    filteredCategories,
     locale,
     setCreateButtonClicked,
     setEditTodo,
@@ -23,6 +25,12 @@ export const TodosList = () => {
     todos,
   } = useAppContext();
   const [showSidebar, setShowSidebar] = useState(false);
+
+  const onSetShowSidebar = () => {
+    setCreateButtonClicked();
+    setEditTodo(undefined);
+    setShowSidebar(true);
+  };
 
   const onDeleteTodo = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
@@ -40,6 +48,13 @@ export const TodosList = () => {
       }),
     );
   };
+
+  const filteredTodos =
+    filteredCategories.length === 0
+      ? todos
+      : todos.filter((item) =>
+          item.categories.some((cat) => filteredCategories.includes(cat)),
+        );
 
   return (
     <>
@@ -67,10 +82,7 @@ export const TodosList = () => {
                   {t.todosList.title}
                 </h2>
                 <div className="flex gap-4">
-                  <IconButton
-                    icon={FilterIcon}
-                    onClick={() => setShowSidebar(true)}
-                  />
+                  <IconButton icon={FilterIcon} onClick={onSetShowSidebar} />
                   {!createButtonClicked && (
                     <IconButton
                       icon={PlusIcon}
@@ -81,7 +93,7 @@ export const TodosList = () => {
               </div>
               <div className="flex flex-col gap-6">
                 <AnimatePresence>
-                  {todos.map((item) => {
+                  {filteredTodos.map((item) => {
                     let datePassed = false;
                     let withinOneDay = false;
                     if (!item.done && item.date) {
@@ -190,7 +202,7 @@ export const TodosList = () => {
         </AnimatePresence>
       </div>
       <Sidebar onClose={() => setShowSidebar(false)} show={showSidebar}>
-        <div>hej</div>
+        <FilterCategories />
       </Sidebar>
     </>
   );

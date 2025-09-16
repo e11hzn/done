@@ -7,7 +7,10 @@
   },
   "sidebar": {
     "filterSort": {
-      "title": "필터링 및 정렬"
+      "title": "필터링 및 정렬",
+      "filter": {
+        "title": "필터링할 카테고리"
+      }
     }
   },
   "todoForm": {

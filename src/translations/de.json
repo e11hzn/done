@@ -9,6 +9,7 @@
     "filterSort": {
       "title": "Filtern und Sortieren",
       "filter": {
+        "noCategories": "Keine Aufgaben mit Kategorien erstellt.",
         "title": "Kategorien zum Filtern"
       }
     }

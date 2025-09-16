@@ -9,6 +9,7 @@
     "filterSort": {
       "title": "Filtrer et trier",
       "filter": {
+        "noCategories": "Aucune tâche n'a été créée avec des catégories.",
         "title": "Catégories sur lesquelles filtrer"
       }
     }

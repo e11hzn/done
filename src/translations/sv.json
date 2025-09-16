@@ -9,6 +9,7 @@
     "filterSort": {
       "title": "Filtrera och Sortera",
       "filter": {
+        "noCategories": "Inga uppgifter skapade med kategorier.",
         "title": "Kategorier att filtrera på"
       }
     }

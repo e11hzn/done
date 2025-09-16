@@ -9,6 +9,7 @@
     "filterSort": {
       "title": "フィルターと並べ替え",
       "filter": {
+        "noCategories": "カテゴリで作成された ToDo はありません。",
         "title": "フィルタリングするカテゴリ"
       }
     }

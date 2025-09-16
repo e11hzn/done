@@ -9,6 +9,7 @@
     "filterSort": {
       "title": "Filter and Sort",
       "filter": {
+        "noCategories": "No todos created with categories.",
         "title": "Categories to filter on"
       }
     }

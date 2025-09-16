@@ -29,18 +29,24 @@ export const FilterCategories = () => {
         )}
       </div>
       <div className="flex flex-wrap gap-4">
-        {categories.map((category) => {
-          const filtered = filteredCategories.includes(category);
-          return (
-            <button
-              className={`border-gray-200 border-2 rounded p-1 cursor-pointer ${filtered ? 'bg-black text-white' : 'bg-white text-black'}`}
-              onClick={() => onAddCategoryToFilter(category, filtered)}
-              key={category}
-            >
-              {category}
-            </button>
-          );
-        })}
+        {categories.length > 0 ? (
+          categories.map((category) => {
+            const filtered = filteredCategories.includes(category);
+            return (
+              <button
+                className={`border-gray-200 border-2 rounded p-1 cursor-pointer ${filtered ? 'bg-black text-white' : 'bg-white text-black'}`}
+                onClick={() => onAddCategoryToFilter(category, filtered)}
+                key={category}
+              >
+                {category}
+              </button>
+            );
+          })
+        ) : (
+          <span className="text-amber-600">
+            {t.sidebar.filterSort.filter.noCategories}
+          </span>
+        )}
       </div>
     </div>
   );

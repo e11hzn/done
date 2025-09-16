@@ -9,6 +9,7 @@
     "filterSort": {
       "title": "过滤和排序",
       "filter": {
+        "noCategories": "没有使用类别创建的待办事项。",
         "title": "要过滤的类别"
       }
     }

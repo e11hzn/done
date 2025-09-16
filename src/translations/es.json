@@ -9,6 +9,7 @@
     "filterSort": {
       "title": "Filtrar y ordenar",
       "filter": {
+        "noCategories": "No se han creado todos los elementos con categorías.",
         "title": "Categorías para filtrar"
       }
     }

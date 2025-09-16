@@ -9,6 +9,7 @@
     "filterSort": {
       "title": "필터링 및 정렬",
       "filter": {
+        "noCategories": "카테고리별로 생성된 할 일이 없습니다.",
         "title": "필터링할 카테고리"
       }
     }

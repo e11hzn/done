@@ -5,6 +5,11 @@
   "localePicker": {
     "selectLanguage": "选择您的语言"
   },
+  "sidebar": {
+    "filterSort": {
+      "title": "过滤和排序"
+    }
+  },
   "todoForm": {
     "cancelButton": "取消",
     "categories": "类别（以空格分隔）",

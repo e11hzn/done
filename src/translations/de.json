@@ -5,6 +5,11 @@
   "localePicker": {
     "selectLanguage": "Wählen Sie Ihre Sprache"
   },
+  "sidebar": {
+    "filterSort": {
+      "title": "Filtern und Sortieren"
+    }
+  },
   "todoForm": {
     "cancelButton": "Stornieren",
     "categories": "Kategorien (durch Leerzeichen getrennt)",

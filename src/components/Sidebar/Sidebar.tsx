@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import { IconButton } from '../IconButton';
 import { CloseIcon } from '@/icons/CloseIcon';
+import { useAppContext } from '../AppProvider';
 
 export type SidebarProps = {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ export type SidebarProps = {
 };
 
 export const Sidebar = ({ children, onClose, show }: SidebarProps) => {
+  const { t } = useAppContext();
   return (
     <>
       <motion.div
@@ -29,7 +31,7 @@ export const Sidebar = ({ children, onClose, show }: SidebarProps) => {
         transition={{ duration: 0.3 }}
       >
         <div className="text-2xl text-orange-900 pb-2 border-b-2 border-b-gray-200 flex justify-between items-center">
-          <span>Filter and Sort</span>
+          <span>{t.sidebar.filterSort.title}</span>
           <IconButton icon={CloseIcon} onClick={onClose} />
         </div>
         {children}

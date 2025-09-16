@@ -5,6 +5,11 @@
   "localePicker": {
     "selectLanguage": "Välj ditt språk"
   },
+  "sidebar": {
+    "filterSort": {
+      "title": "Filtrera och Sortera"
+    }
+  },
   "todoForm": {
     "cancelButton": "Avbryt",
     "categories": "Kategorier (separera med mellanslag)",

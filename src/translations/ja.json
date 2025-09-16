@@ -5,6 +5,11 @@
   "localePicker": {
     "selectLanguage": "言語を選択してください"
   },
+  "sidebar": {
+    "filterSort": {
+      "title": "フィルターと並べ替え"
+    }
+  },
   "todoForm": {
     "cancelButton": "キャンセル",
     "categories": "カテゴリー（スペースで区切る）",

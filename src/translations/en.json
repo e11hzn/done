@@ -11,6 +11,16 @@
       "filter": {
         "noCategories": "No todos created with categories.",
         "title": "Categories to filter on"
+      },
+      "sorting": {
+        "options": {
+          "create-asc": "By create date, ascending",
+          "create-desc": "By create date, descending",
+          "deadline": "By closest to deadline",
+          "name-asc": "By name, ascending",
+          "name-desc": "By name, descending"
+        },
+        "title": "Select a sorting option"
       }
     }
   },

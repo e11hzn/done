@@ -11,6 +11,16 @@
       "filter": {
         "noCategories": "没有使用类别创建的待办事项。",
         "title": "要过滤的类别"
+      },
+      "sorting": {
+        "options": {
+          "create-asc": "按创建日期升序",
+          "create-desc": "按创建日期降序排列",
+          "deadline": "截止期限前",
+          "name-asc": "按名称升序",
+          "name-desc": "按名称降序排列"
+        },
+        "title": "选择排序选项"
       }
     }
   },

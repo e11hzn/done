@@ -1,66 +1,38 @@
 'use client';
 
 import { AnimatePresence, motion } from 'motion/react';
-import { useAppContext } from '@/components/AppProvider';
 import { DeleteIcon } from '@/icons/DeleteIcon';
-import { IconButton } from './IconButton';
+import { IconButton } from '../IconButton';
 import { PencilIcon } from '@/icons/PencilIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
 import { AlertIcon } from '@/icons/AlertIcon';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
-import { useState } from 'react';
 import { FilterIcon } from '@/icons/FilterIcon';
-import { FilterCategories } from './Sidebar/FilterCategories';
+import { FilterCategories } from '../Sidebar/FilterCategories';
+import { SortingTodos } from '../Sidebar/SortingTodos';
+import { useList } from './useList';
 
 export const TodosList = () => {
   const {
     createButtonClicked,
-    filteredCategories,
     locale,
+    onCloseSidebar,
+    onDeleteTodo,
+    onSetShowSidebar,
+    onTodoDone,
+    renderedTodos,
     setCreateButtonClicked,
     setEditTodo,
-    setTodos,
+    showSidebar,
     t,
-    todos,
-  } = useAppContext();
-  const [showSidebar, setShowSidebar] = useState(false);
-
-  const onSetShowSidebar = () => {
-    setCreateButtonClicked();
-    setEditTodo(undefined);
-    setShowSidebar(true);
-  };
-
-  const onDeleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const onTodoDone = (id: number) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id !== id) return todo;
-
-        return {
-          ...todo,
-          done: !todo.done,
-        };
-      }),
-    );
-  };
-
-  const filteredTodos =
-    filteredCategories.length === 0
-      ? todos
-      : todos.filter((item) =>
-          item.categories.some((cat) => filteredCategories.includes(cat)),
-        );
+  } = useList();
 
   return (
     <>
       <div className="w-full">
         <AnimatePresence>
-          {todos.length === 0 ? (
+          {renderedTodos.length === 0 ? (
             <motion.p
               animate={{ opacity: 1, height: 'auto' }}
               className="text-amber-600"
@@ -93,7 +65,7 @@ export const TodosList = () => {
               </div>
               <div className="flex flex-col gap-6">
                 <AnimatePresence>
-                  {filteredTodos.map((item) => {
+                  {renderedTodos.map((item) => {
                     let datePassed = false;
                     let withinOneDay = false;
                     if (!item.done && item.date) {
@@ -128,7 +100,7 @@ export const TodosList = () => {
                         {item.date && (
                           <div className="flex flex-col">
                             <span className="italic">
-                              {t.todosList.dueDate}:&nbsp;
+                              {`${t.todosList.dueDate}: `}
                               {new Date(item.date as string).toLocaleString(
                                 locale,
                               )}
@@ -201,7 +173,8 @@ export const TodosList = () => {
           )}
         </AnimatePresence>
       </div>
-      <Sidebar onClose={() => setShowSidebar(false)} show={showSidebar}>
+      <Sidebar onClose={onCloseSidebar} show={showSidebar}>
+        <SortingTodos />
         <FilterCategories />
       </Sidebar>
     </>

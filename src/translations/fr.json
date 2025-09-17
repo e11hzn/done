@@ -11,6 +11,16 @@
       "filter": {
         "noCategories": "Aucune tâche n'a été créée avec des catégories.",
         "title": "Catégories sur lesquelles filtrer"
+      },
+      "sorting": {
+        "options": {
+          "create-asc": "Par date de création, croissant",
+          "create-desc": "Par date de création, par ordre décroissant",
+          "deadline": "Au plus proche de la date limite",
+          "name-asc": "Par nom, croissant",
+          "name-desc": "Par nom, en ordre décroissant"
+        },
+        "title": "Sélectionnez une option de tri"
       }
     }
   },

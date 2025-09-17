@@ -11,6 +11,16 @@
       "filter": {
         "noCategories": "No se han creado todos los elementos con categorías.",
         "title": "Categorías para filtrar"
+      },
+      "sorting": {
+        "options": {
+          "create-asc": "Por fecha de creación, ascendente",
+          "create-desc": "Por fecha de creación, descendente",
+          "deadline": "Por más cercana a la fecha límite",
+          "name-asc": "Por nombre, ascendente",
+          "name-desc": "Por nombre, descendente"
+        },
+        "title": "Seleccione una opción de clasificación"
       }
     }
   },

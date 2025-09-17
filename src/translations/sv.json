@@ -11,6 +11,16 @@
       "filter": {
         "noCategories": "Inga uppgifter skapade med kategorier.",
         "title": "Kategorier att filtrera på"
+      },
+      "sorting": {
+        "options": {
+          "create-asc": "Efter skapandedatum, stigande",
+          "create-desc": "Efter skapandedatum, fallande",
+          "deadline": "Närmast deadline",
+          "name-asc": "Efter namn, stigande",
+          "name-desc": "Efter namn, fallande"
+        },
+        "title": "Välj ett sorteringsalternativ"
       }
     }
   },

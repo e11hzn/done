@@ -11,6 +11,16 @@
       "filter": {
         "noCategories": "Keine Aufgaben mit Kategorien erstellt.",
         "title": "Kategorien zum Filtern"
+      },
+      "sorting": {
+        "options": {
+          "create-asc": "Nach Erstellungsdatum, aufsteigend",
+          "create-desc": "Nach Erstellungsdatum, absteigend",
+          "deadline": "Bis zum nächsten Termin",
+          "name-asc": "Nach Namen, aufsteigend",
+          "name-desc": "Nach Namen, absteigend"
+        },
+        "title": "Wählen Sie eine Sortieroption"
       }
     }
   },

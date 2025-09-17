@@ -11,6 +11,16 @@
       "filter": {
         "noCategories": "カテゴリで作成された ToDo はありません。",
         "title": "フィルタリングするカテゴリ"
+      },
+      "sorting": {
+        "options": {
+          "create-asc": "作成日順（昇順）",
+          "create-desc": "作成日順（降順）",
+          "deadline": "締め切りに最も近い",
+          "name-asc": "名前順（昇順）",
+          "name-desc": "名前順"
+        },
+        "title": "並べ替えオプションを選択してください"
       }
     }
   },

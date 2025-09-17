@@ -1,5 +1,5 @@
 import { getServerCookieConfig } from '@/utils/cookieServer';
-import { TodosList } from '@/components/TodosList';
+import { TodosList } from '@/components/TodosList/TodosList';
 import { AppProvider } from '@/components/AppProvider';
 import { CreateEditForm } from '@/components/CreateEditForm';
 import { AppHeader } from '@/components/AppHeader';

@@ -9,6 +9,13 @@ import { getTranslations } from '@/utils/i18n';
 import { Todo } from '@/utils/types';
 import { createContext, useContext, useRef, useState } from 'react';
 
+export type SortOrder =
+  | 'create-asc'
+  | 'create-desc'
+  | 'deadline'
+  | 'name-asc'
+  | 'name-desc';
+
 type AppState = {
   categories: Todo['categories'];
   createButtonClicked: boolean;
@@ -20,7 +27,9 @@ type AppState = {
   setEditTodo: (todo?: Todo) => void;
   setFilteredCategories: (filtered: Todo['categories']) => void;
   setLocale: (locale: string) => void;
+  setSortOrder: (sortOrder: SortOrder) => void;
   setTodos: (todos: Todo[]) => void;
+  sortOrder: SortOrder;
   t: Record<string, any>;
   todos: Todo[];
 };
@@ -69,6 +78,7 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
   const [filteredCategories, setFilteredCategories] = useState<
     Todo['categories']
   >([]);
+  const [sortOrder, setSortOrder] = useState<SortOrder>('create-asc');
   const categories = useRef<Todo['categories']>(
     getTodosCategories(list, locale),
   );
@@ -117,7 +127,9 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
         setEditTodo: updateEditTodo,
         setFilteredCategories,
         setLocale: updateLocale,
+        setSortOrder,
         setTodos: updateTodos,
+        sortOrder,
         t: translations,
         todos,
       }}

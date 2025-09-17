@@ -16,6 +16,7 @@ import { useList } from './useList';
 export const TodosList = () => {
   const {
     createButtonClicked,
+    hasFilters,
     locale,
     onCloseSidebar,
     onDeleteTodo,
@@ -54,7 +55,11 @@ export const TodosList = () => {
                   {t.todosList.title}
                 </h2>
                 <div className="flex gap-4">
-                  <IconButton icon={FilterIcon} onClick={onSetShowSidebar} />
+                  <IconButton
+                    iconFill={hasFilters ? 'green' : undefined}
+                    icon={FilterIcon}
+                    onClick={onSetShowSidebar}
+                  />
                   {!createButtonClicked && (
                     <IconButton
                       icon={PlusIcon}

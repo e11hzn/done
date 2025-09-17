@@ -78,6 +78,7 @@ export const useList = () => {
 
   return {
     createButtonClicked,
+    hasFilters: filteredCategories.length > 0,
     locale,
     onCloseSidebar: () => setShowSidebar(false),
     onDeleteTodo,

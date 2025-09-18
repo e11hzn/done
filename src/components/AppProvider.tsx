@@ -1,6 +1,6 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 'use client';
 
+import type { Translations } from '@/translations/types';
 import {
   CookieStorageConfig,
   setClientCookieConfig,
@@ -30,7 +30,7 @@ type AppState = {
   setSortOrder: (sortOrder: SortOrder) => void;
   setTodos: (todos: Todo[]) => void;
   sortOrder: SortOrder;
-  t: Record<string, any>;
+  t: Translations;
   todos: Todo[];
 };
 

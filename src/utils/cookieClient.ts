@@ -20,9 +20,11 @@ export const setClientCookieConfig = async (
 
   cookieStore.set(
     COOKIE_KEY,
-    JSON.stringify({
-      ...currentConfigInStore,
-      ...updatedConfig,
-    }),
+    encodeURIComponent(
+      JSON.stringify({
+        ...currentConfigInStore,
+        ...updatedConfig,
+      }),
+    ),
   );
 };

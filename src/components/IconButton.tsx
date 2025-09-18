@@ -6,7 +6,7 @@ export type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export const IconButton = (props: IconButtonProps) => {
-  const { children, className, icon: Icon, iconFill, ...restProps } = props;
+  const { children: _, className, icon: Icon, iconFill, ...restProps } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   return (

@@ -46,6 +46,11 @@
     "dueDate": "期日",
     "emptyList": "まだタスクが作成されていません。今すぐ上でタスクを作成してください。",
     "no": "いいえ",
+    "search": {
+      "noSearchResults": "検索に一致するタスクはありません。",
+      "placeholder": "カテゴリ、説明、または名前",
+      "title": "検索"
+    },
     "title": "やることリスト",
     "yes": "はい",
     "withinOneDay": "過去1日以内に"

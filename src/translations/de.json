@@ -46,6 +46,11 @@
     "dueDate": "Fälligkeitsdatum",
     "emptyList": "Noch keine Todos erstellt, erstellen Sie jetzt oben eines!",
     "no": "Nein",
+    "search": {
+      "noSearchResults": "Keine Aufgaben entsprechen Ihrer Suche!",
+      "placeholder": "Kategorien, Beschreibung oder Name",
+      "title": "Suchen"
+    },
     "title": "Todos List",
     "yes": "Ja",
     "withinOneDay": "Innerhalb des letzten Tages"

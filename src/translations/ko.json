@@ -46,6 +46,11 @@
     "dueDate": "마감일",
     "emptyList": "아직 생성된 할 일이 없습니다. 지금 위에서 생성하세요!",
     "no": "아니요",
+    "search": {
+      "noSearchResults": "검색 조건에 맞는 작업이 없습니다!",
+      "placeholder": "카테고리, 설명 또는 이름",
+      "title": "찾다"
+    },
     "title": "할 일 목록",
     "yes": "예",
     "withinOneDay": "마지막 날 안에"

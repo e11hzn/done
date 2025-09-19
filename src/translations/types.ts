@@ -1,4 +1,4 @@
-// Generated with "Past JSON as Code" VSCode extension
+// Generated with "Paste JSON as Code" VSCode extension
 // View a JSON file and press Command+Shift+P and select "Open quicktype for JSON"
 
 export interface Translations {
@@ -72,7 +72,14 @@ export interface TodosList {
   dueDate: string;
   emptyList: string;
   no: string;
+  search: Search;
   title: string;
   yes: string;
   withinOneDay: string;
+}
+
+export interface Search {
+  noSearchResults: string;
+  placeholder: string;
+  title: string;
 }

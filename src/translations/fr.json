@@ -46,6 +46,11 @@
     "dueDate": "Date d'échéance",
     "emptyList": "Aucun Todos n'a encore été créé, créez-en un maintenant ci-dessus !",
     "no": "Non",
+    "search": {
+      "noSearchResults": "Aucune tâche ne correspond à votre recherche !",
+      "placeholder": "Catégories, description ou nom",
+      "title": "Recherche"
+    },
     "title": "Liste de tâches",
     "yes": "Oui",
     "withinOneDay": "Au cours du dernier jour"

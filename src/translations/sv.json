@@ -46,6 +46,11 @@
     "dueDate": "Slutdatum",
     "emptyList": "Inga uppgifter skapade än, skapa en nu ovan!",
     "no": "nej",
+    "search": {
+      "noSearchResults": "Inga uppgifter matchar din sökning!",
+      "placeholder": "Kategorier, beskrivning eller namn",
+      "title": "Sök"
+    },
     "title": "Att göra lista",
     "yes": "ja",
     "withinOneDay": "Inom det sista dygnet"

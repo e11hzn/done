@@ -46,6 +46,11 @@
     "dueDate": "Fecha de vencimiento",
     "emptyList": "¡Aún no hay ningún Todos creado, crea uno ahora arriba!",
     "no": "No",
+    "search": {
+      "noSearchResults": "¡No hay tareas que coincidan con tu búsqueda!",
+      "placeholder": "Categorías, descripción o nombre",
+      "title": "Buscar"
+    },
     "title": "Lista de tareas pendientes",
     "yes": "Sí",
     "withinOneDay": "En el último día"

@@ -46,6 +46,11 @@
     "dueDate": "到期日",
     "emptyList": "尚未创建任务，请立即在上面创建一个！",
     "no": "不",
+    "search": {
+      "noSearchResults": "没有符合您搜索条件的任务！",
+      "placeholder": "类别、描述或名称",
+      "title": "搜索"
+    },
     "title": "待办事项列表",
     "yes": "是的",
     "withinOneDay": "在过去一天内"

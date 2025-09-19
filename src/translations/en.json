@@ -46,6 +46,11 @@
     "dueDate": "Due date",
     "emptyList": "No Todos created yet, create one now above!",
     "no": "no",
+    "search": {
+      "noSearchResults": "No todos matches your search!",
+      "placeholder": "Categories, description or name",
+      "title": "Search"
+    },
     "title": "Todos List",
     "yes": "yes",
     "withinOneDay": "Within last day"

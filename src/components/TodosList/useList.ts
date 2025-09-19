@@ -14,6 +14,7 @@ export const useList = () => {
     todos,
   } = useAppContext();
   const [showSidebar, setShowSidebar] = useState(false);
+  const [search, setSearch] = useState('');
 
   const onSetShowSidebar = () => {
     setCreateButtonClicked();
@@ -48,7 +49,7 @@ export const useList = () => {
     [filteredCategories, todos],
   );
 
-  const renderedTodos = useMemo(
+  const sortedTodos = useMemo(
     () =>
       filteredTodos.sort((a, b) => {
         if (sortOrder === 'create-asc') {
@@ -76,6 +77,23 @@ export const useList = () => {
     [filteredTodos, locale, sortOrder],
   );
 
+  const renderedTodos = useMemo(() => {
+    if (search === '') return sortedTodos;
+
+    const searchTerms = search.split(' ');
+
+    return sortedTodos.filter((todo) =>
+      searchTerms.some((term) => {
+        if (term === '') return false;
+
+        const inCategories = todo.categories.some((cat) => cat.includes(term));
+        const inDescription = todo.description?.includes(term);
+        const inName = todo.name.includes(term);
+        return inCategories || inDescription || inName;
+      }),
+    );
+  }, [filteredTodos, search, sortOrder]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return {
     createButtonClicked,
     hasFilters: filteredCategories.length > 0,
@@ -85,8 +103,11 @@ export const useList = () => {
     onSetShowSidebar,
     onTodoDone,
     renderedTodos,
+    search,
     setCreateButtonClicked,
     setEditTodo,
+    setSearch,
+    showSearch: todos.length > 1,
     showSidebar,
     t,
   };

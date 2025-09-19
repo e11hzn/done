@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { useAppContext } from '../AppProvider';
 
 export const useList = () => {
@@ -14,7 +14,6 @@ export const useList = () => {
     todos,
   } = useAppContext();
   const [showSidebar, setShowSidebar] = useState(false);
-  const [search, setSearch] = useState('');
 
   const onSetShowSidebar = () => {
     setCreateButtonClicked();
@@ -49,7 +48,7 @@ export const useList = () => {
     [filteredCategories, todos],
   );
 
-  const sortedTodos = useMemo(
+  const renderedTodos = useMemo(
     () =>
       filteredTodos.sort((a, b) => {
         if (sortOrder === 'create-asc') {
@@ -77,17 +76,6 @@ export const useList = () => {
     [filteredTodos, locale, sortOrder],
   );
 
-  const renderedTodos = useMemo(() => {
-    if (search === '') return sortedTodos;
-
-    return sortedTodos.filter((todo) => {
-      const inCategories = todo.categories.some((cat) => cat.includes(search));
-      const inDescription = todo.description?.includes(search);
-      const inName = todo.name.includes(search);
-      return inCategories || inDescription || inName;
-    });
-  }, [filteredTodos, search, sortOrder]);
-
   return {
     createButtonClicked,
     hasFilters: filteredCategories.length > 0,
@@ -97,11 +85,8 @@ export const useList = () => {
     onSetShowSidebar,
     onTodoDone,
     renderedTodos,
-    search,
     setCreateButtonClicked,
     setEditTodo,
-    setSearch,
-    showSearch: todos.length > 1,
     showSidebar,
     t,
   };

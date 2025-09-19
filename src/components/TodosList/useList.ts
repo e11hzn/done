@@ -59,8 +59,8 @@ export const useList = () => {
           return a.id < b.id ? 1 : -1;
         }
         if (sortOrder === 'deadline') {
-          if (!b.date) return -1;
-          if (!a.date) return 1;
+          if (!b.date || b.done) return -1;
+          if (!a.date || a.done) return 1;
 
           const aTime = new Date(a.date as string).getTime();
           const bTime = new Date(b.date as string).getTime();

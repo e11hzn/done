@@ -78,14 +78,13 @@ export const useList = () => {
   );
 
   const renderedTodos = useMemo(() => {
-    if (search === '') return sortedTodos;
+    const trimmedSearch = search.trim();
+    if (trimmedSearch === '') return sortedTodos;
 
-    const searchTerms = search.split(' ');
+    const searchTerms = trimmedSearch.split(' ').filter((t) => t !== '');
 
     return sortedTodos.filter((todo) =>
       searchTerms.some((term) => {
-        if (term === '') return false;
-
         const inCategories = todo.categories.some((cat) => cat.includes(term));
         const inDescription = todo.description?.includes(term);
         const inName = todo.name.includes(term);

@@ -2530,7 +2530,7 @@ react-datetime-picker@^7.0.1:
     react-fit "^3.0.0"
     react-time-picker "^8.0.2"
 
-react-dom@19.1.11:
+react-dom@19.1.1:
   version "19.1.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.1.1.tgz#2daa9ff7f3ae384aeb30e76d5ee38c046dc89893"
   integrity sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==
@@ -2563,7 +2563,7 @@ react-time-picker@^8.0.2:
     react-fit "^3.0.0"
     update-input-width "^1.4.0"
 
-react@19.1.11:
+react@19.1.1:
   version "19.1.1"
   resolved "https://registry.yarnpkg.com/react/-/react-19.1.1.tgz#06d9149ec5e083a67f9a1e39ce97b06a03b644af"
   integrity sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==

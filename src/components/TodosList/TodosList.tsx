@@ -23,8 +23,11 @@ export const TodosList = () => {
     onSetShowSidebar,
     onTodoDone,
     renderedTodos,
+    search,
     setCreateButtonClicked,
     setEditTodo,
+    setSearch,
+    showSearch,
     showSidebar,
     t,
   } = useList();
@@ -33,7 +36,7 @@ export const TodosList = () => {
     <>
       <div className="w-full">
         <AnimatePresence>
-          {renderedTodos.length === 0 ? (
+          {!showSearch && renderedTodos.length === 0 ? (
             <motion.p
               animate={{ opacity: 1, height: 'auto' }}
               className="text-amber-600"
@@ -70,6 +73,17 @@ export const TodosList = () => {
               </div>
               <div className="flex flex-col gap-6">
                 <AnimatePresence>
+                  {showSearch && (
+                    <label className="flex flex-col">
+                      <span className="text-orange-900">{`Search`}</span>
+                      <input
+                        className="border-2 border-gray-300 rounded"
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Categories, description or name"
+                        value={search}
+                      />
+                    </label>
+                  )}
                   {renderedTodos.map((item) => {
                     let datePassed = false;
                     let withinOneDay = false;

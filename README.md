@@ -1,36 +1,31 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Main branch deployment on Vercel:
 
-First, run the development server:
+[https://done-eight-delta.vercel.app/](https://done-eight-delta.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Existing features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Todo app where user can
+  - CRUD a todo
+  - Search, sort and filter existing todos
+  - Select a language
+- Todos with selected language are stored in a Cookie
+- Some animations exist to make the user experience a little nicer
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Coming features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- AI
+  - Text completion based on language
+  - Allow users to add tasks using natural language, e.g., "Buy groceries tomorrow."
+  - Add todo using speech recognition (couple it with natural language above)
+  - Analyze completion patterns and suggest ways to improve productivity.
+  - Automatic sorting
+  - Provide a conversational interface for managing and querying your todo list.
+    - Enable commands for adding, editing, deleting, and prioritizing tasks through conversation.
+    - "What is my plan for today?"
+    - When user asks for something outside known actions: show known actions with a message “Couldn’t understand what you want, here’s a list of things you can do”
+- BE Server
+  - Create/login user
+  - Store todos in a DB instead of in a Cookie
+  - Theme selection saved in a DB

@@ -1,7 +1,7 @@
 // app/api/chat/route.ts
 import { openai } from '@ai-sdk/openai';
 import { convertToModelMessages, streamText, UIMessage } from 'ai';
-import { todoTools } from '@/utils/todo-tools/todo-tools';
+import { todoTools } from '@/utils/todo-tools';
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();

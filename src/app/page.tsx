@@ -7,6 +7,7 @@ import { Chat } from '@/components/Chat';
 
 export default async function Home() {
   const cookieConfig = await getServerCookieConfig();
+  const hasOpenApiKey = !!process.env.OPENAI_API_KEY;
 
   return (
     <AppProvider cookieConfig={cookieConfig}>
@@ -15,7 +16,7 @@ export default async function Home() {
           <AppHeader />
           <CreateEditForm />
           <TodosList />
-          <Chat />
+          {hasOpenApiKey && <Chat />}
         </main>
       </div>
     </AppProvider>

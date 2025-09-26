@@ -9,12 +9,14 @@ import { getTranslations } from '@/utils/i18n';
 import { Todo } from '@/utils/types';
 import { createContext, useContext, useRef, useState } from 'react';
 
-export type SortOrder =
-  | 'create-asc'
-  | 'create-desc'
-  | 'deadline'
-  | 'name-asc'
-  | 'name-desc';
+export const sortOrderValues = [
+  'create-asc',
+  'create-desc',
+  'deadline',
+  'name-asc',
+  'name-desc',
+] as const;
+export type SortOrder = (typeof sortOrderValues)[number];
 
 type AppState = {
   categories: Todo['categories'];

@@ -3,6 +3,7 @@ import { TodosList } from '@/components/TodosList/TodosList';
 import { AppProvider } from '@/components/AppProvider';
 import { CreateEditForm } from '@/components/CreateEditForm';
 import { AppHeader } from '@/components/AppHeader';
+import { Chat } from '@/components/Chat';
 
 export default async function Home() {
   const cookieConfig = await getServerCookieConfig();
@@ -14,6 +15,7 @@ export default async function Home() {
           <AppHeader />
           <CreateEditForm />
           <TodosList />
+          <Chat />
         </main>
       </div>
     </AppProvider>

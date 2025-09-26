@@ -1,0 +1,51 @@
+import { tool } from 'ai';
+import { z } from 'zod';
+import { sortOrderValues } from '@/components/AppProvider';
+
+const formDataParam = z.object({
+  categories: z
+    .array(z.string())
+    .describe('The categories of the todo as an array of string'),
+  date: z.string().optional().describe('The date of the todo'),
+  description: z.string().optional().describe('The description of the todo'),
+  done: z.boolean().optional().describe('Whether the todo is done'),
+  name: z.string().describe('The name of the todo'),
+});
+
+const idParam = z.number().describe('The ID of the todo');
+
+export const todoTools = {
+  addTodo: tool({
+    description: 'Add a new todo item',
+    inputSchema: z.object({ form: formDataParam }),
+  }),
+  deleteTodo: tool({
+    description: 'Delete a todo item',
+    inputSchema: z.object({ id: idParam }),
+  }),
+  getAllTodos: tool({
+    description: 'List all todo items with optional filtering and sorting',
+    inputSchema: z.object({
+      filter: z
+        .array(z.string())
+        .optional()
+        .describe('Filter todos by categories'),
+      sortOrder: z
+        .enum(sortOrderValues)
+        .optional()
+        .describe('The sortorder for the list'),
+    }),
+  }),
+  getTodo: tool({
+    description: 'Get a todo item',
+    inputSchema: z.object({ id: idParam }),
+  }),
+  toggleTodo: tool({
+    description: 'Toggle the done status of a todo item',
+    inputSchema: z.object({ id: idParam }),
+  }),
+  updateTodo: tool({
+    description: 'Update the content of a todo item',
+    inputSchema: z.object({ id: idParam, form: formDataParam }),
+  }),
+};

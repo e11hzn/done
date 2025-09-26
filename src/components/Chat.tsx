@@ -36,7 +36,7 @@ export const Chat = () => {
     ) {
       setTodos(toolPart.output as Todo[]);
     }
-  }, [messages]);
+  }, [messages]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

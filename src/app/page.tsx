@@ -3,7 +3,7 @@ import { TodosList } from '@/components/TodosList/TodosList';
 import { AppProvider } from '@/components/AppProvider';
 import { CreateEditForm } from '@/components/CreateEditForm';
 import { AppHeader } from '@/components/AppHeader';
-import { Chat } from '@/components/Chat';
+import { Chat } from '@/components/Chat/Chat';
 
 export default async function Home() {
   const cookieConfig = await getServerCookieConfig();

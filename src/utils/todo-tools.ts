@@ -1,6 +1,5 @@
 import { tool } from 'ai';
 import { z } from 'zod';
-import { sortOrderValues } from '@/components/AppProvider';
 
 const formDataParam = z.object({
   categories: z

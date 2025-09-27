@@ -8,19 +8,20 @@ import {
 import { useRef, useState } from 'react';
 import { SortOrder, useAppContext } from './AppProvider';
 import { FormData } from '@/actions/createTodo';
+import { Todo } from '@/utils/types';
 
 export const Chat = () => {
-  const { setFilteredCategories, setSortOrder, setTodos, todos } =
+  const { categories, setFilteredCategories, setSortOrder, setTodos, todos } =
     useAppContext();
 
   const todosRef = useRef(todos);
   todosRef.current = todos;
 
-  const { addToolResult, error, messages, sendMessage } = useChat({
+  const { addToolResult, error, messages, setMessages, sendMessage } = useChat({
     sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
     transport: new DefaultChatTransport({ api: '/api/chat' }),
     async onToolCall({ toolCall }) {
-      console.log('onToolCall', { toolCall });
+      console.log('onToolCall', { toolCall, todos: todosRef.current });
 
       switch (toolCall.toolName) {
         case 'addTodo':
@@ -44,14 +45,42 @@ export const Chat = () => {
           });
           setTodos(todosRef.current.filter((todo) => todo.id !== deleteId));
           return;
+        case 'filterTodos':
+          const { filter } = toolCall.input as { filter?: string[] };
+          if (!filter) {
+            addToolResult({
+              tool: toolCall.toolName,
+              toolCallId: toolCall.toolCallId,
+              output: true,
+            });
+            setFilteredCategories([]);
+            return;
+          }
+          const filterInCategories = filter.filter((cat) =>
+            categories.includes(cat),
+          );
+          if (filterInCategories.length === 0) {
+            addToolResult({
+              tool: toolCall.toolName,
+              toolCallId: toolCall.toolCallId,
+              output: false,
+            });
+            setFilteredCategories([]);
+            return;
+          }
+          addToolResult({
+            tool: toolCall.toolName,
+            toolCallId: toolCall.toolCallId,
+            output: true,
+          });
+          setFilteredCategories(filterInCategories);
+          return;
         case 'getTodo':
           const { id: getId } = toolCall.input as { id: number };
           const foundTodo = todosRef.current.find(({ id }) => id === getId);
           if (!foundTodo) {
             addToolResult({
-              // @ts-expect-error will fix this when I know why there's a type mismatch for the error
-              errorText: 'Sorry, could not find your todo',
-              state: 'output-error',
+              output: false,
               tool: toolCall.toolName,
               toolCallId: toolCall.toolCallId,
             });
@@ -64,21 +93,31 @@ export const Chat = () => {
           }
           return;
         case 'getAllTodos':
-          const toolInput = toolCall.input as {
-            filter?: string[];
-            sortOrder?: SortOrder;
-          };
-          if (toolInput.filter) {
-            setFilteredCategories(toolInput.filter);
-          }
-          if (toolInput.sortOrder) {
-            setSortOrder(toolInput.sortOrder);
-          }
           addToolResult({
             tool: toolCall.toolName,
             toolCallId: toolCall.toolCallId,
             output: todosRef.current,
           });
+          return;
+        case 'sortTodos':
+          const { field, order } = toolCall.input as {
+            field: keyof Pick<Todo, 'done' | 'id' | 'name'>;
+            order: 'asc' | 'desc';
+          };
+          let newSortOrder: SortOrder = 'create-asc';
+          if (field === 'done') {
+            newSortOrder = 'deadline';
+          } else if (field === 'id') {
+            newSortOrder = `create-${order}`;
+          } else {
+            newSortOrder = `name-${order}`;
+          }
+          addToolResult({
+            tool: toolCall.toolName,
+            toolCallId: toolCall.toolCallId,
+            output: true,
+          });
+          setSortOrder(newSortOrder);
           return;
         case 'toggleTodo':
           const { id: toggleId } = toolCall.input as { id: number };
@@ -121,9 +160,7 @@ export const Chat = () => {
           return;
         default:
           addToolResult({
-            // @ts-expect-error will fix this when I know why there's a type mismatch for the error
-            errorText: 'Sorry, dont know how to handle your request',
-            state: 'output-error',
+            output: false,
             tool: toolCall.toolName,
             toolCallId: toolCall.toolCallId,
           });
@@ -148,8 +185,9 @@ export const Chat = () => {
         onSubmit={(e) => {
           e.preventDefault();
           if (input.trim()) {
-            sendMessage({ text: input });
+            setMessages([]);
             setInput('');
+            sendMessage({ text: input });
           }
         }}
       >

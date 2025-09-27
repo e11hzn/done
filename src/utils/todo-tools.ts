@@ -23,22 +23,29 @@ export const todoTools = {
     description: 'Delete a todo item',
     inputSchema: z.object({ id: idParam }),
   }),
-  getAllTodos: tool({
-    description: 'List all todo items with optional filtering and sorting',
+  filterTodos: tool({
+    description: 'Add an array of filter or clear the filters',
     inputSchema: z.object({
       filter: z
         .array(z.string())
         .optional()
         .describe('Filter todos by categories'),
-      sortOrder: z
-        .enum(sortOrderValues)
-        .optional()
-        .describe('The sortorder for the list'),
     }),
+  }),
+  getAllTodos: tool({
+    description: 'List all todo items',
+    inputSchema: z.object({}),
   }),
   getTodo: tool({
     description: 'Get a todo item',
     inputSchema: z.object({ id: idParam }),
+  }),
+  sortTodos: tool({
+    description: 'Set sort order by specific field and order',
+    inputSchema: z.object({
+      field: z.enum(['done', 'id', 'name']).describe('Field to sort by'),
+      order: z.enum(['asc', 'desc']).default('asc').describe('Sort order'),
+    }),
   }),
   toggleTodo: tool({
     description: 'Toggle the done status of a todo item',

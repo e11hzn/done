@@ -2,6 +2,18 @@
   "appHeader": {
     "title": "Todos Done"
   },
+  "chatbot": {
+    "error": "An error has occurred",
+    "input": {
+      "label": "Let the chatbot help with your todos",
+      "placeholder": "Ask anything in regards to your todos"
+    },
+    "role": {
+      "assistant": "Assistant",
+      "system": "System",
+      "user": "You"
+    }
+  },
   "localePicker": {
     "selectLanguage": "Select your language"
   },

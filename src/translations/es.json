@@ -2,6 +2,18 @@
   "appHeader": {
     "title": "Lista hecha"
   },
+  "chatbot": {
+    "error": "Se ha producido un error.",
+    "input": {
+      "label": "Deja que el chatbot te ayude con todos.",
+      "placeholder": "Pregunte cualquier cosa respecto a sus tareas pendientes"
+    },
+    "role": {
+      "assistant": "Asistente",
+      "system": "Sistema",
+      "user": "Tú"
+    }
+  },
   "localePicker": {
     "selectLanguage": "Elige tu idioma"
   },

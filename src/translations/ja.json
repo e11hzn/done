@@ -2,6 +2,18 @@
   "appHeader": {
     "title": "リスト準備完了"
   },
+  "chatbot": {
+    "error": "エラーが発生しました",
+    "input": {
+      "label": "チャットボットがあなたのToDoを手伝います",
+      "placeholder": "やるべきことに関して何でも聞いてください"
+    },
+    "role": {
+      "assistant": "アシスタント",
+      "system": "システム",
+      "user": "あなた"
+    }
+  },
   "localePicker": {
     "selectLanguage": "言語を選択してください"
   },

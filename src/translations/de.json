@@ -2,6 +2,18 @@
   "appHeader": {
     "title": "Liste fertig"
   },
+  "chatbot": {
+    "error": "Ein Fehler ist aufgetreten",
+    "input": {
+      "label": "Lassen Sie sich vom Chatbot bei Ihren Aufgaben helfen",
+      "placeholder": "Fragen Sie alles zu Ihren Aufgaben"
+    },
+    "role": {
+      "assistant": "Assistent",
+      "system": "System",
+      "user": "Du"
+    }
+  },
   "localePicker": {
     "selectLanguage": "Wählen Sie Ihre Sprache"
   },

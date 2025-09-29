@@ -11,7 +11,7 @@ const formDataParam = z.object({
   name: z.string().describe('The name of the todo'),
 });
 
-const idParam = z.number().describe('The ID of the todo');
+const nameParam = z.string().describe('The name of the todo');
 
 export const todoTools = {
   addTodo: tool({
@@ -19,8 +19,8 @@ export const todoTools = {
     inputSchema: z.object({ form: formDataParam }),
   }),
   deleteTodo: tool({
-    description: 'Delete a todo item',
-    inputSchema: z.object({ id: idParam }),
+    description: 'Delete a todo item by name',
+    inputSchema: z.object({ name: nameParam }),
   }),
   filterTodos: tool({
     description: 'Add an array of filter or clear the filters',
@@ -37,7 +37,7 @@ export const todoTools = {
   }),
   getTodo: tool({
     description: 'Get a todo item',
-    inputSchema: z.object({ id: idParam }),
+    inputSchema: z.object({ name: nameParam }),
   }),
   sortTodos: tool({
     description: 'Set sort order by specific field and order',
@@ -48,10 +48,10 @@ export const todoTools = {
   }),
   toggleTodo: tool({
     description: 'Toggle the done status of a todo item',
-    inputSchema: z.object({ id: idParam }),
+    inputSchema: z.object({ name: nameParam }),
   }),
   updateTodo: tool({
     description: 'Update the content of a todo item',
-    inputSchema: z.object({ id: idParam, form: formDataParam }),
+    inputSchema: z.object({ form: formDataParam, name: nameParam }),
   }),
 };

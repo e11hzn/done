@@ -3,6 +3,7 @@
 
 export interface Translations {
   appHeader: AppHeader;
+  chatbot: Chatbot;
   localePicker: LocalePicker;
   sidebar: Sidebar;
   todoForm: TodoForm;
@@ -11,6 +12,23 @@ export interface Translations {
 
 export interface AppHeader {
   title: string;
+}
+
+export interface Chatbot {
+  error: string;
+  input: Input;
+  role: Role;
+}
+
+export interface Input {
+  label: string;
+  placeholder: string;
+}
+
+export interface Role {
+  assistant: string;
+  system: string;
+  user: string;
 }
 
 export interface LocalePicker {

@@ -1,8 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { CalendarDatetimePickerProps } from '@/components/CalenderDatetimePicker';
-import { FormData } from '@/actions/createTodo';
 import { useAppContext } from '@/components/AppProvider';
-import { Todo } from '@/utils/types';
+import { FormData, Todo } from '@/utils/types';
 
 export const useForm = (todo?: Todo) => {
   const [form, setForm] = useState<FormData>(
@@ -54,9 +53,6 @@ export const useForm = (todo?: Todo) => {
       description: '',
       name: '',
     });
-
-    // TODO: if user is logged in --> call server action instead of below
-    // await createTodo(form);
 
     const id = todos.length ? todos[todos.length - 1].id + 1 : 0;
     setTodos([...todos, { ...form, id }]);

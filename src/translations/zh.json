@@ -2,6 +2,18 @@
   "appHeader": {
     "title": "清单已准备好"
   },
+  "chatbot": {
+    "error": "发生错误",
+    "input": {
+      "label": "让聊天机器人帮你处理待办事项",
+      "placeholder": "询问有关你的待办事项的任何事情"
+    },
+    "role": {
+      "assistant": "助理",
+      "system": "系统",
+      "user": "你"
+    }
+  },
   "localePicker": {
     "selectLanguage": "选择您的语言"
   },

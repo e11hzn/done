@@ -2,6 +2,18 @@
   "appHeader": {
     "title": "목록 준비됨"
   },
+  "chatbot": {
+    "error": "오류가 발생했습니다",
+    "input": {
+      "label": "챗봇이 당신의 할 일들을 도와드립니다",
+      "placeholder": "할 일과 관련된 모든 것을 물어보세요"
+    },
+    "role": {
+      "assistant": "보조원",
+      "system": "체계",
+      "user": "너"
+    }
+  },
   "localePicker": {
     "selectLanguage": "언어를 선택하세요"
   },

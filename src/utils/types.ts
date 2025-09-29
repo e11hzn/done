@@ -8,3 +8,5 @@ export type Todo = {
   id: number;
   name: string;
 };
+
+export type FormData = Omit<Todo, 'id'>;

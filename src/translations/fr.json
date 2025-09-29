@@ -2,6 +2,18 @@
   "appHeader": {
     "title": "Liste prête"
   },
+  "chatbot": {
+    "error": "Une erreur s'est produite",
+    "input": {
+      "label": "Laissez le chatbot vous aider avec vos tâches",
+      "placeholder": "Posez toutes vos questions concernant vos tâches"
+    },
+    "role": {
+      "assistant": "Assistant",
+      "system": "Système",
+      "user": "Toi"
+    }
+  },
   "localePicker": {
     "selectLanguage": "Choisissez votre langue"
   },

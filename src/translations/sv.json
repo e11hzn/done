@@ -2,6 +2,18 @@
   "appHeader": {
     "title": "Lista Klar"
   },
+  "chatbot": {
+    "error": "Ett fel har uppstått",
+    "input": {
+      "label": "Låt chatboten hjälpa dig med dina uppgifter",
+      "placeholder": "Fråga vad som helst angående dina uppgifter"
+    },
+    "role": {
+      "assistant": "Assistent",
+      "system": "System",
+      "user": "Du"
+    }
+  },
   "localePicker": {
     "selectLanguage": "Välj ditt språk"
   },

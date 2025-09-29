@@ -5,106 +5,96 @@ import {
 } from 'ai';
 import { FormEvent, useRef, useState } from 'react';
 import { SortOrder, useAppContext } from '../AppProvider';
-import { FormData } from '@/actions/createTodo';
-import { Todo } from '@/utils/types';
+import { FormData, Todo } from '@/utils/types';
 
 export const useChat = () => {
   const [input, setInput] = useState('');
-  const { categories, setFilteredCategories, setSortOrder, setTodos, todos } =
-    useAppContext();
+  const {
+    categories,
+    setFilteredCategories,
+    setSortOrder,
+    setTodos,
+    t,
+    todos,
+  } = useAppContext();
 
   const todosRef = useRef(todos);
   todosRef.current = todos;
 
-  const { addToolResult, error, messages, setMessages, sendMessage } =
+  const { addToolResult, error, messages, setMessages, sendMessage, status } =
     useChatSDK({
       sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
       transport: new DefaultChatTransport({ api: '/api/chat' }),
       async onToolCall({ toolCall }) {
         console.log('onToolCall', { toolCall, todos: todosRef.current });
+        let toolOutput: unknown;
 
         switch (toolCall.toolName) {
           case 'addTodo':
+            toolOutput = true;
+
             const createId = todosRef.current.length
               ? todosRef.current[todosRef.current.length - 1].id + 1
               : 0;
             const { form: createForm } = toolCall.input as { form: FormData };
-            addToolResult({
-              tool: toolCall.toolName,
-              toolCallId: toolCall.toolCallId,
-              output: true,
-            });
+
             setTodos([...todosRef.current, { ...createForm, id: createId }]);
-            return;
+            break;
 
           case 'deleteTodo':
-            const { id: deleteId } = toolCall.input as { id: number };
-            addToolResult({
-              tool: toolCall.toolName,
-              toolCallId: toolCall.toolCallId,
-              output: true,
+            let deleteTodoWithNameFound = false;
+            const { name: deleteName } = toolCall.input as { name: string };
+
+            const updatedTodosAfterDelete = todosRef.current.filter((todo) => {
+              if (todo.name === deleteName) {
+                deleteTodoWithNameFound = true;
+              }
+              return todo.name !== deleteName;
             });
-            setTodos(todosRef.current.filter((todo) => todo.id !== deleteId));
-            return;
+
+            if (deleteTodoWithNameFound) {
+              setTodos(updatedTodosAfterDelete);
+            }
+            toolOutput = deleteTodoWithNameFound;
+            break;
 
           case 'filterTodos':
             const { filter } = toolCall.input as { filter?: string[] };
             if (!filter) {
-              addToolResult({
-                tool: toolCall.toolName,
-                toolCallId: toolCall.toolCallId,
-                output: true,
-              });
+              toolOutput = true;
               setFilteredCategories([]);
-              return;
+              break;
             }
+
             const filterInCategories = filter.filter((cat) =>
               categories.includes(cat),
             );
             if (filterInCategories.length === 0) {
-              addToolResult({
-                tool: toolCall.toolName,
-                toolCallId: toolCall.toolCallId,
-                output: false,
-              });
+              toolOutput = false;
               setFilteredCategories([]);
-              return;
+              break;
             }
-            addToolResult({
-              tool: toolCall.toolName,
-              toolCallId: toolCall.toolCallId,
-              output: true,
-            });
+
+            toolOutput = true;
             setFilteredCategories(filterInCategories);
-            return;
+            break;
 
           case 'getTodo':
-            const { id: getId } = toolCall.input as { id: number };
-            const foundTodo = todosRef.current.find(({ id }) => id === getId);
-            if (!foundTodo) {
-              addToolResult({
-                output: false,
-                tool: toolCall.toolName,
-                toolCallId: toolCall.toolCallId,
-              });
-            } else {
-              addToolResult({
-                tool: toolCall.toolName,
-                toolCallId: toolCall.toolCallId,
-                output: foundTodo,
-              });
-            }
-            return;
+            const { name: getName } = toolCall.input as { name: string };
+            const foundTodo = todosRef.current.find(
+              ({ name }) => name === getName,
+            );
+
+            toolOutput = foundTodo ? true : foundTodo;
+            break;
 
           case 'getAllTodos':
-            addToolResult({
-              tool: toolCall.toolName,
-              toolCallId: toolCall.toolCallId,
-              output: todosRef.current,
-            });
-            return;
+            toolOutput = todosRef.current;
+            break;
 
           case 'sortTodos':
+            toolOutput = true;
+
             const { field, order } = toolCall.input as {
               field: keyof Pick<Todo, 'done' | 'id' | 'name'>;
               order: 'asc' | 'desc';
@@ -117,61 +107,63 @@ export const useChat = () => {
             } else {
               newSortOrder = `name-${order}`;
             }
-            addToolResult({
-              tool: toolCall.toolName,
-              toolCallId: toolCall.toolCallId,
-              output: true,
-            });
+
             setSortOrder(newSortOrder);
-            return;
+            break;
 
           case 'toggleTodo':
-            const { id: toggleId } = toolCall.input as { id: number };
-            addToolResult({
-              tool: toolCall.toolName,
-              toolCallId: toolCall.toolCallId,
-              output: true,
-            });
-            setTodos(
-              todosRef.current.map((thisTodo) => {
-                if (thisTodo.id !== toggleId) return thisTodo;
+            let toggleTodoWithNameFound = false;
+            const { name: toggleName } = toolCall.input as { name: string };
 
-                return {
-                  ...thisTodo,
-                  done: !thisTodo.done,
-                };
-              }),
-            );
-            return;
+            const toggledTodos = todosRef.current.map((thisTodo) => {
+              if (thisTodo.name !== toggleName) return thisTodo;
+
+              toggleTodoWithNameFound = true;
+              return {
+                ...thisTodo,
+                done: !thisTodo.done,
+              };
+            });
+
+            if (toggleTodoWithNameFound) {
+              setTodos(toggledTodos);
+            }
+            toolOutput = toggleTodoWithNameFound;
+            break;
 
           case 'updateTodo':
-            const { form: editForm, id: updateId } = toolCall.input as {
-              form: FormData;
-              id: number;
-            };
-            addToolResult({
-              tool: toolCall.toolName,
-              toolCallId: toolCall.toolCallId,
-              output: true,
-            });
-            setTodos(
-              todosRef.current.map((thisTodo) => {
-                if (thisTodo.id !== updateId) return thisTodo;
+            let updateTodoWithNameFound = false;
 
-                return {
-                  ...thisTodo,
-                  ...editForm,
-                };
-              }),
-            );
-            return;
-          default:
-            addToolResult({
-              output: false,
-              tool: toolCall.toolName,
-              toolCallId: toolCall.toolCallId,
+            const { form: editForm, name: updateName } = toolCall.input as {
+              form: FormData;
+              name: string;
+            };
+
+            const updatedTodos = todosRef.current.map((thisTodo) => {
+              if (thisTodo.name !== updateName) return thisTodo;
+
+              updateTodoWithNameFound = true;
+              return {
+                ...thisTodo,
+                ...editForm,
+              };
             });
+
+            if (updateTodoWithNameFound) {
+              setTodos(updatedTodos);
+            }
+            toolOutput = updateTodoWithNameFound;
+            break;
+
+          default:
+            toolOutput = false;
         }
+
+        addToolResult({
+          output: toolOutput,
+          tool: toolCall.toolName,
+          toolCallId: toolCall.toolCallId,
+        });
       },
     });
 
@@ -190,5 +182,7 @@ export const useChat = () => {
     messages,
     onSubmit,
     setInput,
+    status,
+    t,
   };
 };

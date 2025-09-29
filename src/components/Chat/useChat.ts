@@ -20,6 +20,8 @@ export const useChat = () => {
 
   const todosRef = useRef(todos);
   todosRef.current = todos;
+  const categoriesRef = useRef(categories);
+  categoriesRef.current = categories;
 
   const { addToolResult, error, messages, setMessages, sendMessage, status } =
     useChatSDK({
@@ -60,6 +62,7 @@ export const useChat = () => {
 
           case 'filterTodos':
             const { filter } = toolCall.input as { filter?: string[] };
+            console.log({ filter, categories: categoriesRef });
             if (!filter) {
               toolOutput = true;
               setFilteredCategories([]);
@@ -67,7 +70,7 @@ export const useChat = () => {
             }
 
             const filterInCategories = filter.filter((cat) =>
-              categories.includes(cat),
+              categoriesRef.current.includes(cat),
             );
             if (filterInCategories.length === 0) {
               toolOutput = false;

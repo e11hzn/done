@@ -28,7 +28,6 @@ export const useChat = () => {
       sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
       transport: new DefaultChatTransport({ api: '/api/chat' }),
       async onToolCall({ toolCall }) {
-        console.log('onToolCall', { toolCall, todos: todosRef.current });
         let toolOutput: unknown;
 
         switch (toolCall.toolName) {
@@ -62,7 +61,6 @@ export const useChat = () => {
 
           case 'filterTodos':
             const { filter } = toolCall.input as { filter?: string[] };
-            console.log({ filter, categories: categoriesRef });
             if (!filter) {
               toolOutput = true;
               setFilteredCategories([]);

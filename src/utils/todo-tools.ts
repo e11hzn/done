@@ -18,6 +18,10 @@ export const todoTools = {
     description: 'Add a new todo item',
     inputSchema: z.object({ form: formDataParam }),
   }),
+  clearSearch: tool({
+    description: 'Clear search term',
+    inputSchema: z.object({}),
+  }),
   deleteTodo: tool({
     description: 'Delete a todo item by name',
     inputSchema: z.object({ name: nameParam }),
@@ -38,6 +42,10 @@ export const todoTools = {
   getTodo: tool({
     description: 'Get a todo item',
     inputSchema: z.object({ name: nameParam }),
+  }),
+  searchTodos: tool({
+    description: 'Search for todos on their categories, description and name',
+    inputSchema: z.object({ searchTerm: z.string().describe('Search term') }),
   }),
   sortTodos: tool({
     description: 'Set sort order by specific field and order',

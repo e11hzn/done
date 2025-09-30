@@ -25,10 +25,12 @@ type AppState = {
   filteredCategories: Todo['categories'];
   locale: string;
   onCancel: () => void;
+  search: string;
   setCreateButtonClicked: () => void;
   setEditTodo: (todo?: Todo) => void;
   setFilteredCategories: (filtered: Todo['categories']) => void;
   setLocale: (locale: string) => void;
+  setSearch: (searchTerm: string) => void;
   setSortOrder: (sortOrder: SortOrder) => void;
   setTodos: (todos: Todo[]) => void;
   sortOrder: SortOrder;
@@ -81,6 +83,7 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
     Todo['categories']
   >([]);
   const [sortOrder, setSortOrder] = useState<SortOrder>('create-asc');
+  const [search, setSearch] = useState('');
   const categories = useRef<Todo['categories']>(
     getTodosCategories(list, locale),
   );
@@ -125,10 +128,12 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
         filteredCategories,
         locale,
         onCancel,
+        search,
         setCreateButtonClicked: updateCreateButtonClicked,
         setEditTodo: updateEditTodo,
         setFilteredCategories,
         setLocale: updateLocale,
+        setSearch,
         setSortOrder,
         setTodos: updateTodos,
         sortOrder,

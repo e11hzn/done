@@ -6,15 +6,16 @@ export const useList = () => {
     createButtonClicked,
     filteredCategories,
     locale,
+    search,
     setCreateButtonClicked,
     setEditTodo,
+    setSearch,
     setTodos,
     sortOrder,
     t,
     todos,
   } = useAppContext();
   const [showSidebar, setShowSidebar] = useState(false);
-  const [search, setSearch] = useState('');
 
   const onSetShowSidebar = () => {
     setCreateButtonClicked();
@@ -85,9 +86,15 @@ export const useList = () => {
 
     return sortedTodos.filter((todo) =>
       searchTerms.some((term) => {
-        const inCategories = todo.categories.some((cat) => cat.includes(term));
-        const inDescription = todo.description?.includes(term);
-        const inName = todo.name.includes(term);
+        const inCategories = todo.categories.some((cat) =>
+          cat.toLocaleLowerCase().includes(term.toLocaleLowerCase()),
+        );
+        const inDescription = todo.description
+          ?.toLocaleLowerCase()
+          .includes(term.toLocaleLowerCase());
+        const inName = todo.name
+          .toLocaleLowerCase()
+          .includes(term.toLocaleLowerCase());
         return inCategories || inDescription || inName;
       }),
     );

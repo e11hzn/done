@@ -13,7 +13,8 @@ export async function POST(req: Request) {
       `Your role in life is to return the action and its parameters to manage a todos list. ` +
       `Use the tool provided to return the action and its parameters to manage a todos list. ` +
       `Do not set a date when creating a todo if user has not asked for it. ` +
-      `When deleting or updating a todo item by name, return an error if a todo with the name is not found.`,
+      `When deleting or updating a todo item by name, return an error if a todo with the name is not found. ` +
+      `Return the search string as is when the user makes a search`,
     tools: todoTools,
   });
 

@@ -12,6 +12,7 @@ export const useChat = () => {
   const {
     categories,
     setFilteredCategories,
+    setSearch,
     setSortOrder,
     setTodos,
     t,
@@ -40,6 +41,11 @@ export const useChat = () => {
             const { form: createForm } = toolCall.input as { form: FormData };
 
             setTodos([...todosRef.current, { ...createForm, id: createId }]);
+            break;
+
+          case 'clearSearch':
+            toolOutput = true;
+            setSearch('');
             break;
 
           case 'deleteTodo':
@@ -96,6 +102,12 @@ export const useChat = () => {
 
           case 'getAllTodos':
             toolOutput = todosRef.current;
+            break;
+
+          case 'searchTodos':
+            const { searchTerm } = toolCall.input as { searchTerm: string };
+            toolOutput = true;
+            setSearch(searchTerm);
             break;
 
           case 'sortTodos':

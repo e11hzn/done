@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <AppProvider cookieConfig={cookieConfig}>
       <div className="font-sans min-h-screen p-4">
-        <main className="flex flex-col gap-6 w-full max-w-[1024px] mx-auto">
+        <main className="flex flex-col gap-6 w-full max-w-[1024px] mx-auto break-words">
           <AppHeader />
           <CreateEditForm />
           <TodosList />

@@ -47,10 +47,14 @@ export const useChat = () => {
             const { name: deleteName } = toolCall.input as { name: string };
 
             const updatedTodosAfterDelete = todosRef.current.filter((todo) => {
-              if (todo.name === deleteName) {
+              if (
+                todo.name.toLocaleLowerCase() === deleteName.toLocaleLowerCase()
+              ) {
                 deleteTodoWithNameFound = true;
               }
-              return todo.name !== deleteName;
+              return (
+                todo.name.toLocaleLowerCase() !== deleteName.toLocaleLowerCase()
+              );
             });
 
             if (deleteTodoWithNameFound) {
@@ -83,7 +87,8 @@ export const useChat = () => {
           case 'getTodo':
             const { name: getName } = toolCall.input as { name: string };
             const foundTodo = todosRef.current.find(
-              ({ name }) => name === getName,
+              ({ name }) =>
+                name.toLocaleLowerCase() === getName.toLocaleLowerCase(),
             );
 
             toolOutput = foundTodo ? true : foundTodo;
@@ -117,7 +122,12 @@ export const useChat = () => {
             const { name: toggleName } = toolCall.input as { name: string };
 
             const toggledTodos = todosRef.current.map((thisTodo) => {
-              if (thisTodo.name !== toggleName) return thisTodo;
+              if (
+                thisTodo.name.toLocaleLowerCase() !==
+                toggleName.toLocaleLowerCase()
+              ) {
+                return thisTodo;
+              }
 
               toggleTodoWithNameFound = true;
               return {
@@ -141,7 +151,12 @@ export const useChat = () => {
             };
 
             const updatedTodos = todosRef.current.map((thisTodo) => {
-              if (thisTodo.name !== updateName) return thisTodo;
+              if (
+                thisTodo.name.toLocaleLowerCase() !==
+                updateName.toLocaleLowerCase()
+              ) {
+                return thisTodo;
+              }
 
               updateTodoWithNameFound = true;
               return {
@@ -168,6 +183,13 @@ export const useChat = () => {
       },
     });
 
+  const onSpeechEnd = (transcript: string) => {
+    if (transcript.trim()) {
+      setMessages([]);
+      sendMessage({ text: transcript });
+    }
+  };
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input.trim()) {
@@ -181,6 +203,7 @@ export const useChat = () => {
     error,
     input,
     messages,
+    onSpeechEnd,
     onSubmit,
     setInput,
     status,

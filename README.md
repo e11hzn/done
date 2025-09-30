@@ -15,4 +15,5 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   - Uses the [Vercel AI SDK](https://ai-sdk.dev/docs/introduction)
   - It needs an environment variable called `OPENAI_API_KEY`. This is set for the production deployment (using Vercel to deploy), so you need to get one and set it locally if you want to run the chatbot locally.
   - The chatbot will not be rendered if this environment variable is missing
+  - It's possible to talk to the AI as well as type in the input field.
 - Some animations exist to make the user experience a little nicer

@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { COOKIE_KEY } from './utils/cookieClient';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const cookieStore = request.cookies;
   if (cookieStore.has(COOKIE_KEY)) {
     return NextResponse.next();

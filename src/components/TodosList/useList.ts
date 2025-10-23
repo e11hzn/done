@@ -78,6 +78,7 @@ export const useList = () => {
     [filteredTodos, locale, sortOrder],
   );
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const renderedTodos = useMemo(() => {
     const trimmedSearch = search.trim();
     if (trimmedSearch === '') return sortedTodos;

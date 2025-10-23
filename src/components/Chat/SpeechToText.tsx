@@ -29,7 +29,7 @@ export const SpeechToText = ({
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (SpeechRecognition) {
-      setShowComponent(true);
+      setShowComponent(true); // eslint-disable-line react-hooks/set-state-in-effect
     }
 
     const recognition = new SpeechRecognition();

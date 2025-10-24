@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "all-checks": "yarn typecheck && yarn format && yarn lint && yarn test",
     "build": "next build --turbopack",
     "dev": "next dev --turbopack",
     "format": "prettier --write './**/*.{js,ts,jsx,tsx,mjs,css}' --config ./.prettierrc",
@@ -11,7 +12,8 @@
     "start": "next start",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.53",

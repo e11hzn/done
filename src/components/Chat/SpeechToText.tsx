@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 import { useAppContext } from '../AppProvider';
 import { IconButton } from '../IconButton';
 import { MicrophoneIcon } from '@/icons/MicrophoneIcon';
@@ -29,7 +29,9 @@ export const SpeechToText = ({
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (SpeechRecognition) {
-      setShowComponent(true); // eslint-disable-line react-hooks/set-state-in-effect
+      startTransition(() => {
+        setShowComponent(true);
+      });
     }
 
     const recognition = new SpeechRecognition();

@@ -7,7 +7,7 @@ import {
 } from '@/utils/cookieClient';
 import { getTranslations } from '@/utils/i18n';
 import { Todo } from '@/utils/types';
-import { createContext, useContext, useRef, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 export const sortOrderValues = [
   'create-asc',
@@ -19,7 +19,6 @@ export const sortOrderValues = [
 export type SortOrder = (typeof sortOrderValues)[number];
 
 type AppState = {
-  categories: Todo['categories'];
   createButtonClicked: boolean;
   editTodo?: Todo;
   filteredCategories: Todo['categories'];
@@ -51,9 +50,8 @@ export const useTodos = () => {
   return { onCancel, todos, setTodos };
 };
 export const useFilteredCategories = () => {
-  const { categories, filteredCategories, setFilteredCategories } =
-    useAppContext();
-  return { categories, filteredCategories, setFilteredCategories };
+  const { filteredCategories, setFilteredCategories } = useAppContext();
+  return { filteredCategories, setFilteredCategories };
 };
 
 type AppProviderProps = {
@@ -61,7 +59,7 @@ type AppProviderProps = {
   cookieConfig: CookieStorageConfig;
 };
 
-const getTodosCategories = (
+export const getTodosCategories = (
   todos: Todo[],
   locale: string,
 ): Todo['categories'] =>
@@ -84,9 +82,6 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
   >([]);
   const [sortOrder, setSortOrder] = useState<SortOrder>('create-asc');
   const [search, setSearch] = useState('');
-  const categories = useRef<Todo['categories']>(
-    getTodosCategories(list, locale),
-  );
 
   const updateLocale = (newLocale: string) => {
     setLocale(newLocale);
@@ -99,9 +94,9 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
     setClientCookieConfig({ list: newTodos });
     setEditTodo(undefined);
     setCreateButtonClicked(false);
-    categories.current = getTodosCategories(newTodos, locale);
+    const currentCategories = getTodosCategories(newTodos, locale);
     setFilteredCategories(
-      filteredCategories.filter((cat) => categories.current.includes(cat)),
+      filteredCategories.filter((cat) => currentCategories.includes(cat)),
     );
   };
 
@@ -122,7 +117,6 @@ export const AppProvider = ({ children, cookieConfig }: AppProviderProps) => {
   return (
     <AppContext.Provider
       value={{
-        categories: categories.current,
         createButtonClicked,
         editTodo,
         filteredCategories,

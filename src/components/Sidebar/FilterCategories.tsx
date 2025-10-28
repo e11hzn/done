@@ -1,9 +1,9 @@
 import { FilterRemove } from '@/icons/FilterRemove';
-import { useAppContext } from '../AppProvider';
+import { getTodosCategories, useAppContext } from '../AppProvider';
 import { IconButton } from '../IconButton';
 
 export const FilterCategories = () => {
-  const { categories, filteredCategories, setFilteredCategories, t } =
+  const { locale, filteredCategories, setFilteredCategories, t, todos } =
     useAppContext();
 
   const onAddCategoryToFilter = (category: string, filtered: boolean) => {
@@ -17,6 +17,7 @@ export const FilterCategories = () => {
   };
 
   const onClearAllFilters = () => setFilteredCategories([]);
+  const categories = getTodosCategories(todos, locale);
 
   return (
     <div>

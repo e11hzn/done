@@ -3,14 +3,17 @@ import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithToolCalls,
 } from 'ai';
-import { FormEvent, useRef, useState } from 'react';
-import { SortOrder, useAppContext } from '../AppProvider';
+import { FormEvent, useEffect, useState } from 'react';
+import { getTodosCategories, SortOrder, useAppContext } from '../AppProvider';
 import { FormData, Todo } from '@/utils/types';
+
+let currentTodos: Todo[] = [];
+let currentCategories: string[] = [];
 
 export const useChat = () => {
   const [input, setInput] = useState('');
   const {
-    categories,
+    locale,
     setFilteredCategories,
     setSearch,
     setSortOrder,
@@ -19,10 +22,10 @@ export const useChat = () => {
     todos,
   } = useAppContext();
 
-  const todosRef = useRef(todos);
-  todosRef.current = todos;
-  const categoriesRef = useRef(categories);
-  categoriesRef.current = categories;
+  useEffect(() => {
+    currentTodos = todos;
+    currentCategories = getTodosCategories(todos, locale);
+  }, [locale, todos]);
 
   const { addToolResult, error, messages, setMessages, sendMessage, status } =
     useChatSDK({
@@ -35,12 +38,12 @@ export const useChat = () => {
           case 'addTodo':
             toolOutput = true;
 
-            const createId = todosRef.current.length
-              ? todosRef.current[todosRef.current.length - 1].id + 1
+            const createId = currentTodos.length
+              ? currentTodos[currentTodos.length - 1].id + 1
               : 0;
             const { form: createForm } = toolCall.input as { form: FormData };
 
-            setTodos([...todosRef.current, { ...createForm, id: createId }]);
+            setTodos([...currentTodos, { ...createForm, id: createId }]);
             break;
 
           case 'clearSearch':
@@ -52,7 +55,7 @@ export const useChat = () => {
             let deleteTodoWithNameFound = false;
             const { name: deleteName } = toolCall.input as { name: string };
 
-            const updatedTodosAfterDelete = todosRef.current.filter((todo) => {
+            const updatedTodosAfterDelete = currentTodos.filter((todo) => {
               if (
                 todo.name.toLocaleLowerCase() === deleteName.toLocaleLowerCase()
               ) {
@@ -78,7 +81,7 @@ export const useChat = () => {
             }
 
             const filterInCategories = filter.filter((cat) =>
-              categoriesRef.current.includes(cat),
+              currentCategories.includes(cat),
             );
             if (filterInCategories.length === 0) {
               toolOutput = false;
@@ -92,7 +95,7 @@ export const useChat = () => {
 
           case 'getTodo':
             const { name: getName } = toolCall.input as { name: string };
-            const foundTodo = todosRef.current.find(
+            const foundTodo = currentTodos.find(
               ({ name }) =>
                 name.toLocaleLowerCase() === getName.toLocaleLowerCase(),
             );
@@ -101,7 +104,7 @@ export const useChat = () => {
             break;
 
           case 'getAllTodos':
-            toolOutput = todosRef.current;
+            toolOutput = currentTodos;
             break;
 
           case 'searchTodos':
@@ -133,7 +136,7 @@ export const useChat = () => {
             let toggleTodoWithNameFound = false;
             const { name: toggleName } = toolCall.input as { name: string };
 
-            const toggledTodos = todosRef.current.map((thisTodo) => {
+            const toggledTodos = currentTodos.map((thisTodo) => {
               if (
                 thisTodo.name.toLocaleLowerCase() !==
                 toggleName.toLocaleLowerCase()
@@ -162,7 +165,7 @@ export const useChat = () => {
               name: string;
             };
 
-            const updatedTodos = todosRef.current.map((thisTodo) => {
+            const updatedTodos = currentTodos.map((thisTodo) => {
               if (
                 thisTodo.name.toLocaleLowerCase() !==
                 updateName.toLocaleLowerCase()

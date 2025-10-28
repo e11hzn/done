@@ -78,8 +78,7 @@ export const useList = () => {
     [filteredTodos, locale, sortOrder],
   );
 
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
-  const renderedTodos = useMemo(() => {
+  const getRenderedTodos = () => {
     const trimmedSearch = search.trim();
     if (trimmedSearch === '') return sortedTodos;
 
@@ -99,7 +98,7 @@ export const useList = () => {
         return inCategories || inDescription || inName;
       }),
     );
-  }, [filteredTodos, search, sortOrder]); // eslint-disable-line react-hooks/exhaustive-deps
+  };
 
   return {
     createButtonClicked,
@@ -109,7 +108,7 @@ export const useList = () => {
     onDeleteTodo,
     onSetShowSidebar,
     onTodoDone,
-    renderedTodos,
+    renderedTodos: getRenderedTodos(),
     search,
     setCreateButtonClicked,
     setEditTodo,

@@ -1,20 +1,19 @@
 'use client';
 
 import { startTransition, useEffect, useRef, useState } from 'react';
-import { useAppContext } from '../AppProvider';
 import { IconButton } from '../IconButton';
 import { MicrophoneIcon } from '@/icons/MicrophoneIcon';
+import { useAppSelector } from '../AppProvider';
 
 export type SpeechToTextProps = {
   className?: string;
   onSpeechEnd: (transcript: string) => void;
 };
-
 export const SpeechToText = ({
   className = '',
   onSpeechEnd,
 }: SpeechToTextProps) => {
-  const { locale } = useAppContext();
+  const locale = useAppSelector((state) => state.app.locale);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [showComponent, setShowComponent] = useState(false);

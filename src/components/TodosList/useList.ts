@@ -1,43 +1,50 @@
 import { useMemo, useState } from 'react';
-import { useAppContext } from '../AppProvider';
+import type { Todo } from '@/utils/types';
+import {
+  setEditTodo,
+  setSearch as setSearchAction,
+  setTodos as setTodosThunk,
+  toggleCreateButton,
+  useAppDispatch,
+  useAppSelector,
+} from '../AppProvider';
 
 export const useList = () => {
-  const {
-    createButtonClicked,
-    filteredCategories,
-    locale,
-    search,
-    setCreateButtonClicked,
-    setEditTodo,
-    setSearch,
-    setTodos,
-    sortOrder,
-    t,
-    todos,
-  } = useAppContext();
+  const dispatch = useAppDispatch();
+  const createButtonClicked = useAppSelector(
+    (state) => state.app.createButtonClicked,
+  );
+  const filteredCategories = useAppSelector(
+    (state) => state.app.filteredCategories,
+  );
+  const locale = useAppSelector((state) => state.app.locale);
+  const search = useAppSelector((state) => state.app.search);
+  const sortOrder = useAppSelector((state) => state.app.sortOrder);
+  const translations = useAppSelector((state) => state.app.translations);
+  const todos = useAppSelector((state) => state.app.todos);
   const [showSidebar, setShowSidebar] = useState(false);
 
   const onSetShowSidebar = () => {
-    setCreateButtonClicked();
-    setEditTodo(undefined);
+    dispatch(toggleCreateButton());
+    dispatch(setEditTodo(undefined));
     setShowSidebar(true);
   };
 
   const onDeleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
+    void dispatch(setTodosThunk(updatedTodos));
   };
 
   const onTodoDone = (id: number) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id !== id) return todo;
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id !== id) return todo;
 
-        return {
-          ...todo,
-          done: !todo.done,
-        };
-      }),
-    );
+      return {
+        ...todo,
+        done: !todo.done,
+      };
+    });
+    void dispatch(setTodosThunk(updatedTodos));
   };
 
   const filteredTodos = useMemo(
@@ -110,11 +117,11 @@ export const useList = () => {
     onTodoDone,
     renderedTodos: getRenderedTodos(),
     search,
-    setCreateButtonClicked,
-    setEditTodo,
-    setSearch,
+    setCreateButtonClicked: () => dispatch(toggleCreateButton()),
+    setEditTodo: (todo?: Todo) => dispatch(setEditTodo(todo)),
+    setSearch: (term: string) => dispatch(setSearchAction(term)),
     showSearch: todos.length > 1,
     showSidebar,
-    t,
+    t: translations,
   };
 };

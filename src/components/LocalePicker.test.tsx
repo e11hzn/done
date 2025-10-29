@@ -1,15 +1,8 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  within,
-  waitFor,
-} from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { screen, fireEvent, within, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import { LocalePicker } from './LocalePicker';
 import { locales } from '@/utils/i18n';
-import { createAppStore } from '@/store/store';
+import { renderWithProvider } from '@/test-utils/renderWithProvider';
 import { setClientCookieConfig } from '@/utils/cookieClient';
 
 vi.mock('@/utils/cookieClient', () => ({
@@ -18,14 +11,8 @@ vi.mock('@/utils/cookieClient', () => ({
   setClientCookieConfig: vi.fn().mockResolvedValue(undefined),
 }));
 
-const renderPickerAndGetSelect = (initialLocale: string = 'en-US') => {
-  const store = createAppStore({ list: [], locale: initialLocale });
-
-  render(
-    <Provider store={store}>
-      <LocalePicker />
-    </Provider>,
-  );
+const renderPickerAndGetSelect = () => {
+  renderWithProvider(<LocalePicker />);
 
   return screen.getByRole('combobox') as HTMLSelectElement;
 };
@@ -36,7 +23,7 @@ describe('LocalePicker', () => {
   });
 
   it('renders a select with all options and selects current locale by default', () => {
-    const select = renderPickerAndGetSelect('en-US');
+    const select = renderPickerAndGetSelect();
 
     expect(select).toBeInTheDocument();
 
@@ -52,7 +39,7 @@ describe('LocalePicker', () => {
   });
 
   it('updates locale in the store when selection changes', async () => {
-    const select = renderPickerAndGetSelect('en-US');
+    const select = renderPickerAndGetSelect();
 
     fireEvent.change(select, { target: { value: 'fr-FR' } });
 

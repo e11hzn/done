@@ -1,29 +1,41 @@
 import { FilterRemove } from '@/icons/FilterRemove';
-import { getTodosCategories, useAppContext } from '../AppProvider';
+import {
+  getTodosCategories,
+  setFilteredCategories,
+  useAppDispatch,
+  useAppSelector,
+} from '../AppProvider';
 import { IconButton } from '../IconButton';
 
 export const FilterCategories = () => {
-  const { locale, filteredCategories, setFilteredCategories, t, todos } =
-    useAppContext();
+  const dispatch = useAppDispatch();
+  const locale = useAppSelector((state) => state.app.locale);
+  const filteredCategories = useAppSelector(
+    (state) => state.app.filteredCategories,
+  );
+  const translations = useAppSelector((state) => state.app.translations);
+  const todos = useAppSelector((state) => state.app.todos);
 
   const onAddCategoryToFilter = (category: string, filtered: boolean) => {
     if (filtered) {
-      setFilteredCategories(
-        filteredCategories.filter((cat) => cat !== category),
+      dispatch(
+        setFilteredCategories(
+          filteredCategories.filter((cat) => cat !== category),
+        ),
       );
     } else {
-      setFilteredCategories(filteredCategories.concat([category]));
+      dispatch(setFilteredCategories(filteredCategories.concat([category])));
     }
   };
 
-  const onClearAllFilters = () => setFilteredCategories([]);
+  const onClearAllFilters = () => dispatch(setFilteredCategories([]));
   const categories = getTodosCategories(todos, locale);
 
   return (
     <div>
       <div className="flex justify-between">
         <h2 className="text-orange-900 mb-4">
-          {t.sidebar.filterSort.filter.title}
+          {translations.sidebar.filterSort.filter.title}
         </h2>
         {filteredCategories.length > 0 && (
           <IconButton icon={FilterRemove} onClick={onClearAllFilters} />
@@ -45,7 +57,7 @@ export const FilterCategories = () => {
           })
         ) : (
           <span className="text-amber-600">
-            {t.sidebar.filterSort.filter.noCategories}
+            {translations.sidebar.filterSort.filter.noCategories}
           </span>
         )}
       </div>

@@ -1,6 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import { CalendarDatetimePickerProps } from '@/components/CalenderDatetimePicker';
-import { useAppContext } from '@/components/AppProvider';
+import {
+  cancelEditing,
+  setTodos as setTodosThunk,
+  useAppDispatch,
+  useAppSelector,
+} from '@/components/AppProvider';
 import { FormData, Todo } from '@/utils/types';
 
 export const useForm = (todo?: Todo) => {
@@ -11,7 +16,9 @@ export const useForm = (todo?: Todo) => {
     },
   );
   const [showNameError, setShowNameError] = useState(false);
-  const { onCancel, setTodos, t, todos } = useAppContext();
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector((state) => state.app.todos);
+  const translations = useAppSelector((state) => state.app.translations);
 
   const updateName = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNameError(false);
@@ -55,7 +62,7 @@ export const useForm = (todo?: Todo) => {
     });
 
     const id = todos.length ? todos[todos.length - 1].id + 1 : 0;
-    setTodos([...todos, { ...form, id }]);
+    void dispatch(setTodosThunk([...todos, { ...form, id }]));
   };
 
   const onEdit = () => {
@@ -72,16 +79,18 @@ export const useForm = (todo?: Todo) => {
         ...form,
       };
     });
-    setTodos(updatedTodos);
+    void dispatch(setTodosThunk(updatedTodos));
   };
 
   return {
     form,
-    onCancel,
+    onCancel: () => {
+      dispatch(cancelEditing());
+    },
     onCreate,
     onEdit,
     showNameError,
-    t,
+    t: translations,
     updateCategories,
     updateDate,
     updateDescription,

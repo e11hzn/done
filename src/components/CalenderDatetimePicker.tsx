@@ -4,7 +4,7 @@ import DateTimePicker, { DateTimePickerProps } from 'react-datetime-picker';
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
-import { useLocale } from './AppProvider';
+import { useAppSelector } from './AppProvider';
 
 export type CalendarDatetimePickerProps = {
   date: DateTimePickerProps['value'];
@@ -15,7 +15,7 @@ export const CalendarDatetimePicker = ({
   date,
   onChange,
 }: CalendarDatetimePickerProps) => {
-  const { locale } = useLocale();
+  const locale = useAppSelector((state) => state.app.locale);
 
   return (
     <DateTimePicker

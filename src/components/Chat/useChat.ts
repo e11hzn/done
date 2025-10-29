@@ -4,7 +4,16 @@ import {
   lastAssistantMessageIsCompleteWithToolCalls,
 } from 'ai';
 import { FormEvent, useEffect, useState } from 'react';
-import { getTodosCategories, SortOrder, useAppContext } from '../AppProvider';
+import {
+  SortOrder,
+  getTodosCategories,
+  setFilteredCategories,
+  setSearch,
+  setSortOrder,
+  setTodos as setTodosThunk,
+  useAppDispatch,
+  useAppSelector,
+} from '../AppProvider';
 import { FormData, Todo } from '@/utils/types';
 
 let currentTodos: Todo[] = [];
@@ -12,15 +21,10 @@ let currentCategories: string[] = [];
 
 export const useChat = () => {
   const [input, setInput] = useState('');
-  const {
-    locale,
-    setFilteredCategories,
-    setSearch,
-    setSortOrder,
-    setTodos,
-    t,
-    todos,
-  } = useAppContext();
+  const dispatch = useAppDispatch();
+  const locale = useAppSelector((state) => state.app.locale);
+  const todos = useAppSelector((state) => state.app.todos);
+  const translations = useAppSelector((state) => state.app.translations);
 
   useEffect(() => {
     currentTodos = todos;
@@ -43,12 +47,14 @@ export const useChat = () => {
               : 0;
             const { form: createForm } = toolCall.input as { form: FormData };
 
-            setTodos([...currentTodos, { ...createForm, id: createId }]);
+            void dispatch(
+              setTodosThunk([...currentTodos, { ...createForm, id: createId }]),
+            );
             break;
 
           case 'clearSearch':
             toolOutput = true;
-            setSearch('');
+            dispatch(setSearch(''));
             break;
 
           case 'deleteTodo':
@@ -67,7 +73,7 @@ export const useChat = () => {
             });
 
             if (deleteTodoWithNameFound) {
-              setTodos(updatedTodosAfterDelete);
+              void dispatch(setTodosThunk(updatedTodosAfterDelete));
             }
             toolOutput = deleteTodoWithNameFound;
             break;
@@ -76,7 +82,7 @@ export const useChat = () => {
             const { filter } = toolCall.input as { filter?: string[] };
             if (!filter) {
               toolOutput = true;
-              setFilteredCategories([]);
+              dispatch(setFilteredCategories([]));
               break;
             }
 
@@ -85,12 +91,12 @@ export const useChat = () => {
             );
             if (filterInCategories.length === 0) {
               toolOutput = false;
-              setFilteredCategories([]);
+              dispatch(setFilteredCategories([]));
               break;
             }
 
             toolOutput = true;
-            setFilteredCategories(filterInCategories);
+            dispatch(setFilteredCategories(filterInCategories));
             break;
 
           case 'getTodo':
@@ -110,7 +116,7 @@ export const useChat = () => {
           case 'searchTodos':
             const { searchTerm } = toolCall.input as { searchTerm: string };
             toolOutput = true;
-            setSearch(searchTerm);
+            dispatch(setSearch(searchTerm));
             break;
 
           case 'sortTodos':
@@ -129,7 +135,7 @@ export const useChat = () => {
               newSortOrder = `name-${order}`;
             }
 
-            setSortOrder(newSortOrder);
+            dispatch(setSortOrder(newSortOrder));
             break;
 
           case 'toggleTodo':
@@ -152,7 +158,7 @@ export const useChat = () => {
             });
 
             if (toggleTodoWithNameFound) {
-              setTodos(toggledTodos);
+              void dispatch(setTodosThunk(toggledTodos));
             }
             toolOutput = toggleTodoWithNameFound;
             break;
@@ -181,7 +187,7 @@ export const useChat = () => {
             });
 
             if (updateTodoWithNameFound) {
-              setTodos(updatedTodos);
+              void dispatch(setTodosThunk(updatedTodos));
             }
             toolOutput = updateTodoWithNameFound;
             break;
@@ -222,6 +228,6 @@ export const useChat = () => {
     onSubmit,
     setInput,
     status,
-    t,
+    t: translations,
   };
 };

@@ -1,64 +1,62 @@
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  within,
+  waitFor,
+} from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { vi } from 'vitest';
 import { LocalePicker } from './LocalePicker';
 import { locales } from '@/utils/i18n';
-import * as AppProvider from '@/components/AppProvider';
+import { createAppStore } from '@/store/store';
+import { setClientCookieConfig } from '@/utils/cookieClient';
 
-type AppContext = ReturnType<typeof AppProvider.useAppContext>;
-type ViMockFn = ReturnType<typeof vi.fn>;
+vi.mock('@/utils/cookieClient', () => ({
+  COOKIE_KEY: 'done-todos-config',
+  getClientCookieConfig: vi.fn(),
+  setClientCookieConfig: vi.fn().mockResolvedValue(undefined),
+}));
 
-const spyUseAppContext = (
-  locale: string = 'en-US',
-  setLocale: ViMockFn = vi.fn(),
-) => {
-  const mockCtx: Pick<AppContext, 'locale' | 'setLocale'> = {
-    locale,
-    setLocale,
-  };
-  vi.spyOn(AppProvider, 'useAppContext').mockImplementation(
-    () => mockCtx as AppContext,
+const renderPickerAndGetSelect = (initialLocale: string = 'en-US') => {
+  const store = createAppStore({ list: [], locale: initialLocale });
+
+  render(
+    <Provider store={store}>
+      <LocalePicker />
+    </Provider>,
   );
-  return { setLocale };
-};
 
-const renderPickerAndGetSelect = () => {
-  render(<LocalePicker />);
-  return screen.getByRole('combobox');
+  return screen.getByRole('combobox') as HTMLSelectElement;
 };
 
 describe('LocalePicker', () => {
   beforeEach(() => {
-    vi.restoreAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders a select with all options and selects current locale by default', () => {
-    spyUseAppContext('en-US');
-    const select = renderPickerAndGetSelect();
+    const select = renderPickerAndGetSelect('en-US');
 
     expect(select).toBeInTheDocument();
 
     const options = within(select).getAllByRole('option');
     expect(options).toHaveLength(locales.length);
 
-    // Ensure each option value is present
     const optionValues = options.map((opt) => (opt as HTMLOptionElement).value);
     const expectedValues = locales.map((l) => l.locale);
     expect(optionValues).toEqual(expectedValues);
 
-    // Spot-check that flag text is rendered for the first option
     expect(options[0]).toHaveTextContent(locales[0].flag);
-
-    // Default selected value should match context locale
-    expect((select as HTMLSelectElement).value).toBe('en-US');
+    expect(select.value).toBe('en-US');
   });
 
-  it('calls setLocale when selection changes', () => {
-    const { setLocale } = spyUseAppContext('en-US');
-    const select = renderPickerAndGetSelect();
+  it('updates locale in the store when selection changes', async () => {
+    const select = renderPickerAndGetSelect('en-US');
 
     fireEvent.change(select, { target: { value: 'fr-FR' } });
 
-    expect(setLocale).toHaveBeenCalledTimes(1);
-    expect(setLocale).toHaveBeenCalledWith('fr-FR');
+    await waitFor(() => expect(select.value).toBe('fr-FR'));
+    expect(setClientCookieConfig).toHaveBeenCalledWith({ locale: 'fr-FR' });
   });
 });

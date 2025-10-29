@@ -3,16 +3,15 @@
 import { motion } from 'motion/react';
 import { IconButton } from '../IconButton';
 import { CloseIcon } from '@/icons/CloseIcon';
-import { useAppContext } from '../AppProvider';
+import { useAppSelector } from '../AppProvider';
 
 export type SidebarProps = {
   children: React.ReactNode;
   onClose: () => void;
   show: boolean;
 };
-
 export const Sidebar = ({ children, onClose, show }: SidebarProps) => {
-  const { t } = useAppContext();
+  const translations = useAppSelector((state) => state.app.translations);
   return (
     <>
       <motion.div
@@ -31,7 +30,7 @@ export const Sidebar = ({ children, onClose, show }: SidebarProps) => {
         transition={{ duration: 0.3 }}
       >
         <div className="text-2xl text-orange-900 pb-2 border-b-2 border-b-gray-200 flex justify-between items-center">
-          <h2>{t.sidebar.filterSort.title}</h2>
+          <h2>{translations.sidebar.filterSort.title}</h2>
           <IconButton icon={CloseIcon} onClick={onClose} />
         </div>
         {children}

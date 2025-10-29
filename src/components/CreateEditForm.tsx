@@ -1,11 +1,15 @@
 'use client';
 
 import { AnimatePresence, motion } from 'motion/react';
-import { useAppContext } from './AppProvider';
 import { TodoForm } from './TodoForm/TodoForm';
+import { useAppSelector } from './AppProvider';
 
 export const CreateEditForm = () => {
-  const { createButtonClicked, editTodo, todos } = useAppContext();
+  const createButtonClicked = useAppSelector(
+    (state) => state.app.createButtonClicked,
+  );
+  const editTodo = useAppSelector((state) => state.app.editTodo);
+  const todos = useAppSelector((state) => state.app.todos);
 
   return (
     <AnimatePresence mode="wait">

@@ -1,6 +1,11 @@
 'use client';
 
-import { SortOrder, useAppContext } from '../AppProvider';
+import {
+  SortOrder,
+  setSortOrder,
+  useAppDispatch,
+  useAppSelector,
+} from '../AppProvider';
 
 const sortOptions: SortOrder[] = [
   'create-asc',
@@ -9,14 +14,15 @@ const sortOptions: SortOrder[] = [
   'name-asc',
   'name-desc',
 ];
-
 export const SortingTodos = () => {
-  const { setSortOrder, sortOrder, t } = useAppContext();
+  const dispatch = useAppDispatch();
+  const sortOrder = useAppSelector((state) => state.app.sortOrder);
+  const translations = useAppSelector((state) => state.app.translations);
 
   return (
     <fieldset className="border-b-3 border-gray-600 pb-8">
       <legend className="text-orange-900 mb-4">
-        {t.sidebar.filterSort.sorting.title}
+        {translations.sidebar.filterSort.sorting.title}
       </legend>
       <ul className="flex flex-col gap-2">
         {sortOptions.map((sortKey) => (
@@ -25,12 +31,12 @@ export const SortingTodos = () => {
               checked={sortKey === sortOrder}
               id={sortKey}
               name="sorting-todos"
-              onChange={() => setSortOrder(sortKey)}
+              onChange={() => dispatch(setSortOrder(sortKey))}
               type="radio"
               value={sortKey}
             />
             <label htmlFor={sortKey}>
-              {t.sidebar.filterSort.sorting.options[sortKey]}
+              {translations.sidebar.filterSort.sorting.options[sortKey]}
             </label>
           </li>
         ))}

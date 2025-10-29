@@ -25,8 +25,6 @@ describe('LocalePicker', () => {
   it('renders a select with all options and selects current locale by default', () => {
     const select = renderPickerAndGetSelect();
 
-    expect(select).toBeInTheDocument();
-
     const options = within(select).getAllByRole('option');
     expect(options).toHaveLength(locales.length);
 

@@ -19,7 +19,7 @@ export const CalendarDatetimePicker = ({
 
   return (
     <DateTimePicker
-      className="border-2 border-gray-300 rounded [&>div]:!border-none"
+      className="border-2 border-gray-300 rounded [&>div]:border-none!"
       dayPlaceholder="dd"
       hourPlaceholder="hh"
       locale={locale}

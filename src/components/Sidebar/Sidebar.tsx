@@ -26,7 +26,7 @@ export const Sidebar = ({ children, onClose, show }: SidebarProps) => {
       />
       <motion.div
         animate={show ? { right: 0 } : { right: '-20rem' }}
-        className="fixed top-0 right-[-20rem] w-80 max-w-full h-screen bg-white shadow-[16px_0_32px_-16px_#000] p-4 z-10 flex flex-col gap-4"
+        className="fixed top-0 -right-80 w-80 max-w-full h-screen bg-white shadow-[16px_0_32px_-16px_#000] p-4 z-10 flex flex-col gap-4"
         transition={{ duration: 0.3 }}
       >
         <div className="text-2xl text-orange-900 pb-2 border-b-2 border-b-gray-200 flex justify-between items-center">

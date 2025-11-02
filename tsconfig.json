@@ -22,7 +22,7 @@
         "name": "next"
       }
     ],
-    "types": ["vitest/globals", "dom-speech-recognition"],
+    "types": ["vitest/globals", "dom-speech-recognition", "@playwright/test"],
     "paths": {
       "@/*": [
         "./src/*"

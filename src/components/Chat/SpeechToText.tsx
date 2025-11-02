@@ -27,11 +27,11 @@ export const SpeechToText = ({
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    if (SpeechRecognition) {
-      startTransition(() => {
-        setShowComponent(true);
-      });
-    }
+    if (!SpeechRecognition) return;
+
+    startTransition(() => {
+      setShowComponent(true);
+    });
 
     const recognition = new SpeechRecognition();
     recognition.continuous = true;

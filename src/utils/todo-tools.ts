@@ -18,6 +18,10 @@ export const todoTools = {
     description: 'Add a new todo item',
     inputSchema: z.object({ form: formDataParam }),
   }),
+  clearFilters: tool({
+    description: 'Clear filters',
+    inputSchema: z.object({}),
+  }),
   clearSearch: tool({
     description: 'Clear search term',
     inputSchema: z.object({}),

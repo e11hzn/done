@@ -52,6 +52,11 @@ export const useChat = () => {
             );
             break;
 
+          case 'clearFilters':
+            toolOutput = true;
+            dispatch(setFilteredCategories([]));
+            break;
+
           case 'clearSearch':
             toolOutput = true;
             dispatch(setSearch(''));

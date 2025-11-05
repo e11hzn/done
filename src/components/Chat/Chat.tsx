@@ -12,7 +12,7 @@ export const Chat = () => {
   return (
     <div>
       <form className="mb-4" onSubmit={onSubmit} ref={formRef}>
-        <label className="flex flex-col" key="search-todos">
+        <label className="flex flex-col">
           <span className="text-orange-900">{t.chatbot.input.label}</span>
           <div className="relative">
             <input

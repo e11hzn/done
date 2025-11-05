@@ -12,6 +12,7 @@ import { FilterIcon } from '@/icons/FilterIcon';
 import { FilterCategories } from '../Sidebar/FilterCategories';
 import { SortingTodos } from '../Sidebar/SortingTodos';
 import { useList } from './useList';
+import { ClearIcon } from '@/icons/ClearIcon';
 
 export const TodosList = () => {
   const {
@@ -78,12 +79,21 @@ export const TodosList = () => {
                       <span className="text-orange-900">
                         {t.todosList.search.title}
                       </span>
-                      <input
-                        className="border-2 border-gray-300 rounded px-1"
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder={t.todosList.search.placeholder}
-                        value={search}
-                      />
+                      <div className="relative">
+                        <input
+                          className="border-2 border-gray-300 rounded px-1 w-full"
+                          onChange={(e) => setSearch(e.target.value)}
+                          placeholder={t.todosList.search.placeholder}
+                          value={search}
+                        />
+                        {!!search.length && (
+                          <IconButton
+                            className="absolute right-0 top-0.5"
+                            icon={ClearIcon}
+                            onClick={() => setSearch('')}
+                          />
+                        )}
+                      </div>
                     </label>
                   )}
                   {renderedTodos.length === 0 && (

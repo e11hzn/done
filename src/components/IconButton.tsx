@@ -6,7 +6,14 @@ export type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export const IconButton = (props: IconButtonProps) => {
-  const { children: _, className, icon: Icon, iconFill, ...restProps } = props;
+  const {
+    children: _,
+    className,
+    icon: Icon,
+    iconFill,
+    type = 'button',
+    ...restProps
+  } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -15,6 +22,7 @@ export const IconButton = (props: IconButtonProps) => {
       className={`w-6 h-6 cursor-pointer ${className ?? ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      type={type}
     >
       <Icon fill={isHovered ? '#0078d7' : (iconFill ?? 'black')} />
     </button>

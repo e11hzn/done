@@ -66,7 +66,6 @@ export const SpeechToText = ({ onSpeechEnd }: SpeechToTextProps) => {
       icon={MicrophoneIcon}
       iconFill={isRecording ? 'green' : undefined}
       onClick={onCaptureStart}
-      type="button"
     />
   );
 };

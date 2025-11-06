@@ -111,7 +111,7 @@ export const useChat = () => {
                 name.toLocaleLowerCase() === getName.toLocaleLowerCase(),
             );
 
-            toolOutput = foundTodo ? true : foundTodo;
+            toolOutput = foundTodo ?? false;
             break;
 
           case 'getAllTodos':

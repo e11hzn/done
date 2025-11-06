@@ -24,7 +24,7 @@ describe('InputField', () => {
     expect(input.type).toBe('password');
     expect(input.placeholder).toBe('Enter password');
     expect(input.disabled).toBe(true);
-    expect(input).toHaveClass('pr-1');
+    expect(input).toHaveClass('px-1');
   });
 
   it('calls onChange handler when input value changes', () => {
@@ -48,6 +48,9 @@ describe('InputField', () => {
     const button = screen.getByRole('button');
     fireEvent.click(button);
     expect(handleIconClick).toHaveBeenCalledTimes(1);
+
+    const input = screen.getByRole('textbox');
+    expect(input).toHaveClass('pr-6');
   });
 
   it('does not render IconButton when only icon is provided without onIconClick', () => {
@@ -65,6 +68,9 @@ describe('InputField', () => {
     const customIcon = <div data-testid="custom-icon">Custom</div>;
     render(<InputField label="Test" customIcon={customIcon} />);
     expect(screen.getByTestId('custom-icon')).toBeVisible();
+
+    const input = screen.getByRole('textbox');
+    expect(input).toHaveClass('pr-6');
   });
 
   it('displays error message when inputError is provided', () => {
@@ -77,18 +83,5 @@ describe('InputField', () => {
   it('does not display error message when inputError is not provided', () => {
     render(<InputField label="Email" />);
     expect(screen.queryByTestId('input-error')).not.toBeInTheDocument();
-  });
-
-  it('applies correct padding class when icon is present', () => {
-    const handleIconClick = vi.fn();
-    render(
-      <InputField
-        label="Search"
-        icon={MockIcon}
-        onIconClick={handleIconClick}
-      />,
-    );
-    const input = screen.getByRole('textbox');
-    expect(input).toHaveClass('pr-6');
   });
 });

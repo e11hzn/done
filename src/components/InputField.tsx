@@ -22,7 +22,7 @@ export const InputField = (props: InputFieldProps) => {
       <span className="text-orange-900">{label}</span>
       <div className="relative">
         <input
-          className={`border-2 border-gray-300 rounded w-full pl-1${icon ? ' pr-6' : ' pr-1'}`}
+          className={`border-2 border-gray-300 rounded w-full px-1 ${icon || customIcon ? 'pr-6' : ''}`}
           {...restInputProps}
         />
         {!!(icon && onIconClick) && (

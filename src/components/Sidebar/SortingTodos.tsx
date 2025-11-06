@@ -1,19 +1,12 @@
 'use client';
 
 import {
-  SortOrder,
   setSortOrder,
+  sortOrderValues,
   useAppDispatch,
   useAppSelector,
 } from '../AppProvider';
 
-const sortOptions: SortOrder[] = [
-  'create-asc',
-  'create-desc',
-  'deadline',
-  'name-asc',
-  'name-desc',
-];
 export const SortingTodos = () => {
   const dispatch = useAppDispatch();
   const sortOrder = useAppSelector((state) => state.app.sortOrder);
@@ -25,7 +18,7 @@ export const SortingTodos = () => {
         {translations.sidebar.filterSort.sorting.title}
       </legend>
       <ul className="flex flex-col gap-2">
-        {sortOptions.map((sortKey) => (
+        {sortOrderValues.map((sortKey) => (
           <li className="flex gap-2" key={sortKey}>
             <input
               checked={sortKey === sortOrder}

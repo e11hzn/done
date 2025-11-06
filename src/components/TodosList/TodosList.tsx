@@ -13,6 +13,7 @@ import { FilterCategories } from '../Sidebar/FilterCategories';
 import { SortingTodos } from '../Sidebar/SortingTodos';
 import { useList } from './useList';
 import { ClearIcon } from '@/icons/ClearIcon';
+import { InputField } from '../InputField';
 
 export const TodosList = () => {
   const {
@@ -75,26 +76,16 @@ export const TodosList = () => {
               <div className="flex flex-col gap-6">
                 <AnimatePresence>
                   {showSearch && (
-                    <label className="flex flex-col" key="search-todos">
-                      <span className="text-orange-900">
-                        {t.todosList.search.title}
-                      </span>
-                      <div className="relative">
-                        <input
-                          className="border-2 border-gray-300 rounded px-1 w-full"
-                          onChange={(e) => setSearch(e.target.value)}
-                          placeholder={t.todosList.search.placeholder}
-                          value={search}
-                        />
-                        {!!search.length && (
-                          <IconButton
-                            className="absolute right-0 top-0.5"
-                            icon={ClearIcon}
-                            onClick={() => setSearch('')}
-                          />
-                        )}
-                      </div>
-                    </label>
+                    <InputField
+                      icon={!!search.length ? ClearIcon : undefined}
+                      id="search"
+                      key="search"
+                      label={t.todosList.search.title}
+                      onIconClick={() => setSearch('')}
+                      onChange={(e) => setSearch(e.target.value)}
+                      placeholder={t.todosList.search.placeholder}
+                      value={search}
+                    />
                   )}
                   {renderedTodos.length === 0 && (
                     <p className="text-amber-600">

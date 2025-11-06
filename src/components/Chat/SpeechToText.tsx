@@ -6,13 +6,10 @@ import { MicrophoneIcon } from '@/icons/MicrophoneIcon';
 import { useAppSelector } from '../AppProvider';
 
 export type SpeechToTextProps = {
-  className?: string;
   onSpeechEnd: (transcript: string) => void;
 };
-export const SpeechToText = ({
-  className = '',
-  onSpeechEnd,
-}: SpeechToTextProps) => {
+
+export const SpeechToText = ({ onSpeechEnd }: SpeechToTextProps) => {
   const locale = useAppSelector((state) => state.app.locale);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const [isRecording, setIsRecording] = useState(false);
@@ -65,7 +62,7 @@ export const SpeechToText = ({
 
   return (
     <IconButton
-      className={className}
+      className="absolute right-0 top-0.5"
       icon={MicrophoneIcon}
       iconFill={isRecording ? 'green' : undefined}
       onClick={onCaptureStart}

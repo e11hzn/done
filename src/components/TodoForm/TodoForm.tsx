@@ -3,6 +3,7 @@
 import { CalendarDatetimePicker } from '@/components/CalenderDatetimePicker';
 import { useForm } from './useForm';
 import { Todo } from '@/utils/types';
+import { InputField } from '../InputField';
 
 export type TodoFormProps =
   | {
@@ -44,20 +45,16 @@ export const TodoForm = (props: TodoFormProps) => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <h2 className="text-2xl text-orange-900">{title}</h2>
+      <InputField
+        id="todo-name"
+        label={`${t.todoForm.name}:`}
+        inputError={showNameError ? t.todoForm.nameError : undefined}
+        onChange={updateName}
+        required
+        value={form.name}
+      />
       <label className="flex flex-col">
-        {`${t.todoForm.name}:`}
-        <input
-          className="border-2 border-gray-300 rounded"
-          onChange={updateName}
-          required
-          value={form.name}
-        />
-        {showNameError && (
-          <span className="text-red-500 text-sm">{t.todoForm.nameError}</span>
-        )}
-      </label>
-      <label className="flex flex-col">
-        <span>{`${t.todoForm.description}:`}</span>
+        <span className="text-orange-900">{`${t.todoForm.description}:`}</span>
         <textarea
           className="border-2 border-gray-300 rounded"
           onChange={updateDescription}
@@ -66,17 +63,15 @@ export const TodoForm = (props: TodoFormProps) => {
         />
       </label>
       <label className="flex flex-col">
-        {`${t.todoForm.date}:`}
+        <span className="text-orange-900">{`${t.todoForm.date}:`}</span>
         <CalendarDatetimePicker date={form.date} onChange={updateDate} />
       </label>
-      <label className="flex flex-col">
-        {`${t.todoForm.categories}:`}
-        <input
-          className="border-2 border-gray-300 rounded"
-          onChange={updateCategories}
-          value={form.categories.join(' ')}
-        />
-      </label>
+      <InputField
+        id="todo-categories"
+        label={`${t.todoForm.categories}:`}
+        onChange={updateCategories}
+        value={form.categories.join(' ')}
+      />
       <div className="flex gap-6 w-full">
         <button
           className="mt-4 bg-black text-white border-2 border-gray-200 rounded cursor-pointer py-1 font-bold flex-1"
